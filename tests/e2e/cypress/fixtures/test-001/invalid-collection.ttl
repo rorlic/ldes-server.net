@@ -1,0 +1,1 @@
+@prefix ldes: <https://w3id.org/ldes#> .

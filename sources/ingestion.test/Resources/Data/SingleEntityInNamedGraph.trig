@@ -1,0 +1,11 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix wiki: <http://en.wikipedia.org/wiki/> .
+
+wiki:Merry_Men {
+    wiki:Little_John
+        a          foaf:Person ;
+        foaf:name  "Little John" ;
+        foaf:knows wiki:Robin_Hood .
+}

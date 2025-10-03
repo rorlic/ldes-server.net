@@ -1,0 +1,75 @@
+
+services:
+  # LDES Server
+  ldes-server:
+    container_name: ${USECASE_NAME:-setup-caching}_ldes-server
+    image: aquila-solutions/ldes-server:latest
+    depends_on:
+      ldes-postgres:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings:Postgres=Host=ldes-postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PWD};Persist Security Info=true
+      - LdesServer:Compatible=true
+      - LdesServer:Fetching:MaxAge=10
+      - LdesServer:Fetching:MaxAgeImmutable=604800
+    ports:
+      - 8082:8080
+    networks:
+      - ldes
+    healthcheck:
+      test: curl http://ldes-server:8080/metrics
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    restart: unless-stopped
+
+
+  # Postgres Database UI
+  adminer:
+    image: adminer:${ADMINER_TAG:-latest}
+    depends_on:
+      ldes-postgres:
+        condition: service_healthy
+    ports:
+      - 8085:8080
+    networks:
+      - ldes
+    restart: unless-stopped
+
+
+  ldes-postgres:
+    container_name: ldes-postgres
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PWD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    restart: always
+    networks:
+      - ldes
+
+
+  nginx:
+    image: nginx:${NGINX_TAG:-stable}
+    container_name: ${USECASE_NAME:-setup-caching}_nginx
+    ports:
+      - 8080:8080
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/fwd-ldes-server.conf:ro
+    depends_on:
+      - ldes-server
+    networks:
+      - ldes
+
+networks:
+  ldes:
+    name: ${USECASE_NAME:-setup-caching}_network

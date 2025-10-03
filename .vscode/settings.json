@@ -1,0 +1,12 @@
+{
+    "cSpell.words": [
+        "bucketization",
+        "LDES"
+    ],
+    "cucumber.glue": [
+      "tests/e2e/cypress/support/**/*.ts",
+    ],
+    "cucumber.features": [
+      "tests/e2e/cypress/features/*.feature"
+    ]
+}

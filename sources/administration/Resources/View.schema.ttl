@@ -1,0 +1,88 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+@prefix ldes: <https://w3id.org/ldes#> .
+@prefix tree: <https://w3id.org/tree#>.
+
+@prefix lsdn: <https://ldes-server.net/> .
+
+[
+    a             sh:NodeShape ;
+    sh:targetNode tree:Node ;
+    sh:property   [   a            sh:PropertyShape ;
+                      sh:path      [ sh:inversePath rdf:type ] ;
+                      sh:minCount  0 ;
+                      sh:maxCount  1 ;
+                      sh:name      "tree:Node count" ;
+                      sh:message   "LSDN-21 - A view definition MUST contain at most one tree:Node"
+                  ],[  a           sh:PropertyShape ;
+                       sh:path     [ sh:inversePath rdf:type ] ;
+                       sh:nodeKind sh:IRI ;
+                       sh:name     "tree:Node identity" ;
+                       sh:message  "LSDN-22 - A view MUST be identified using a named node (and not a blank node)" 
+                  ] 
+] .
+
+[
+    a                   sh:NodeShape ;
+    sh:targetSubjectsOf tree:fragmentationStrategy ;
+    sh:property         [ a           sh:PropertyShape ;
+                          sh:path      tree:fragmentationStrategy;
+                          sh:minCount  0 ;
+                          sh:maxCount  1 ;
+                          sh:name      "tree:fragmentationStrategy count" ;
+                          sh:message   "LSDN-23 - A view MAY contain at most one fragmentation strategy"
+                        ]
+] .
+
+[
+    a                   sh:NodeShape ;
+    sh:targetSubjectsOf tree:pageSize ;
+    sh:property         [ a           sh:PropertyShape ;
+                          sh:path      tree:pageSize;
+                          sh:minCount  0 ;
+                          sh:maxCount  1 ;
+                          sh:minExclusive 0 ;
+                          sh:name      "tree:pageSize count" ;
+                          sh:message   "LSDN-24 - A view MAY contain at most one page size using a strictly positive integer"
+                        ]
+] .
+
+[
+    a                   sh:NodeShape ;
+    sh:targetObjectsOf  tree:fragmentationStrategy ;
+    sh:property         [ a sh:PropertyShape ; 
+                          sh:path ([sh:zeroOrMorePath rdf:rest] rdf:first rdf:type) ;
+                          sh:in ( lsdn:TimeFragmentation );
+                          sh:name      "tree:fragmentationStrategy type" ;
+                          sh:message   "A view MUST only contain well-known fragmentation strategies"
+                        ]
+] .
+
+[
+    a                   sh:NodeShape ;
+    sh:targetClass      lsdn:TimeFragmentation ;
+    sh:property         [ a           sh:PropertyShape ;
+                          sh:path      tree:path;
+                          sh:minCount  1 ;
+                          sh:maxCount  1 ;
+                          sh:name      "tree:path count" ;
+                          sh:message   "LSDN-28 - A time fragmentation MUST specify the fragmentation path"
+                        ]
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass lsdn:TimeFragmentation ;
+    sh:property    [ a         sh:PropertyShape ;
+                     sh:path      lsdn:bucket ;
+                     sh:minCount  0 ;
+                     sh:nodeKind  sh:Literal ;
+                     sh:datatype  xsd:duration ;
+                     sh:pattern   "^((P[0-9]+[YMD])|(PT[0-9]+[MHS]))$";
+                     sh:name      "time bucket" ;
+                     sh:message   "LSDN-30 - A time fragmentation MAY specify the time buckets as simple durations"
+                   ]
+] .

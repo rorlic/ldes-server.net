@@ -1,0 +1,19 @@
+{
+  "@context":{
+    "@base":"http://en.wikipedia.org/wiki/",
+    "@vocab":"http://xmlns.com/foaf/0.1/"
+  },
+  "@graph":[
+    {
+      "@id":"Little_John",
+      "@type":"Person",
+      "knows":[
+        {
+          "@id":"Robin_Hood"
+        }
+      ],
+      "name":"Little John"
+    }
+  ],
+  "@id":"http://en.wikipedia.org/wiki/Merry_Men"
+}

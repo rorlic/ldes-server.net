@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="8.5.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0"/>
+        <PackageReference Include="Moq" Version="4.20.72" />
+        <PackageReference Include="xunit" Version="2.4.2"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="6.0.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\core.test\AquilaSolutions.LdesServer.Core.Test.csproj" />
+      <ProjectReference Include="..\ingestion\AquilaSolutions.LdesServer.Ingestion.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\Data\Empty.ttl" />
+      <EmbeddedResource Include="Resources\Data\EntityWithIso8601StringDataTypeForVersionId.ttl" />
+      <EmbeddedResource Include="Resources\Data\EntityWithMultipleNamedNodes.ttl" />
+      <EmbeddedResource Include="Resources\Data\EntityWithMultipleVersionIds.ttl" />
+      <EmbeddedResource Include="Resources\Data\EntityWithoutNamedNode.ttl" />
+      <EmbeddedResource Include="Resources\Data\EntityWithoutVersionId.ttl" />
+      <EmbeddedResource Include="Resources\Data\EntityWithStructure.ttl" />
+      <EmbeddedResource Include="Resources\Data\EntityWithWrongDataTypeForVersionId.ttl" />
+      <EmbeddedResource Include="Resources\Data\ManyStructuredEntities.nt" />
+      <EmbeddedResource Include="Resources\Data\MultipleEntitiesAndOrphanedBlankNodes.ttl" />
+      <EmbeddedResource Include="Resources\Data\MultipleEntitiesInBothGraphs.trig" />
+      <EmbeddedResource Include="Resources\Data\MultipleEntitiesInDefaultGraph.ttl" />
+      <EmbeddedResource Include="Resources\Data\MultipleEntitiesInNamedGraphs.trig" />
+      <EmbeddedResource Include="Resources\Data\MultipleEntitiesWithSharedBlankNodes.ttl" />
+      <EmbeddedResource Include="Resources\Data\SingleEntityInDefaultGraph.ttl" />
+      <EmbeddedResource Include="Resources\Data\SingleEntityInNamedGraph.trig" />
+      <EmbeddedResource Include="Resources\Data\SingleVersionEntityInDefaultGraph.ttl" />
+    </ItemGroup>
+
+</Project>

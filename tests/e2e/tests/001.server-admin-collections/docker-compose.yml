@@ -1,0 +1,46 @@
+networks:
+  ldes:
+    name: test001_network
+
+
+services:
+
+  # LDES Server
+  ldes-server:
+    container_name: test001_ldes-server
+    image: aquila-solutions/ldes-server:latest
+    depends_on:
+      ldes-postgres:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings:Postgres=Host=ldes-postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PWD};Persist Security Info=true
+    ports:
+      - 8080:8080
+    networks:
+      - ldes
+    restart: unless-stopped
+    healthcheck:
+      test: curl http://ldes-server:8080/metrics
+      interval: 1s
+      timeout: 1s
+      retries: 30
+
+
+  ldes-postgres:
+    container_name: test001_ldes-postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PWD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    networks:
+      - ldes
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 1s
+      timeout: 1s
+      retries: 30

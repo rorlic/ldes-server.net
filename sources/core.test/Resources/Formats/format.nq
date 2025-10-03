@@ -1,0 +1,3 @@
+<http://en.wikipedia.org/wiki/Little_John> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> <http://en.wikipedia.org/wiki/Merry_Men> .
+<http://en.wikipedia.org/wiki/Little_John> <http://xmlns.com/foaf/0.1/name> "Little John" <http://en.wikipedia.org/wiki/Merry_Men> .
+<http://en.wikipedia.org/wiki/Little_John> <http://xmlns.com/foaf/0.1/knows> <http://en.wikipedia.org/wiki/Robin_Hood> <http://en.wikipedia.org/wiki/Merry_Men> .

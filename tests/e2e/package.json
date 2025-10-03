@@ -1,0 +1,48 @@
+{
+  "name": "e2e-tests-automated",
+  "version": "1.0.0",
+  "description": "Automated E2E tests using cypress and cucumber",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run -e tags=\"not (@BROKEN)\"",
+    "test:no-nifi": "cypress run -e tags=\"not (@nifi or @BROKEN)\"",
+    "test:no-ldio": "cypress run -e tags=\"not (@ldio or @BROKEN)\"",
+    "open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Informatievlaanderen/VSDS-LDES-E2E-testing.git"
+  },
+  "keywords": [
+    "LDES",
+    "VSDS",
+    "E2E",
+    "automated tests"
+  ],
+  "author": "Ranko Orlic",
+  "license": "EUPL-1.2",
+  "bugs": {
+    "url": "https://github.com/Informatievlaanderen/VSDS-LDES-E2E-testing/issues"
+  },
+  "homepage": "https://github.com/Informatievlaanderen/VSDS-LDES-E2E-testing#readme",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.2.0",
+    "@cypress/webpack-preprocessor": "^6.0.4",
+    "@types/jsonld": "^1.5.15",
+    "@types/n3": "^1.26.0",
+    "@types/underscore": "^1.13.0",
+    "cypress": "^14.5.3",
+    "cypress-wait-until": "^3.0.2",
+    "rdf-isomorphic": "^2.0.1",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.9.2",
+    "uuid": "^11.1.0"
+  },
+  "dependencies": {
+    "jsonld": "^8.3.3",
+    "n3": "^1.26.0",
+    "node-jq": "^6.0.1",
+    "string_decoder": "^1.3.0",
+    "underscore": "^1.13.7"
+  }
+}

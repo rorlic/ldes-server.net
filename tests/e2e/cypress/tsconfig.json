@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+      "module": "nodenext",
+      "moduleResolution": "nodenext",
+      "target": "esnext",
+      "lib": [
+          "esnext",
+          "dom"
+      ],
+      "types": [
+          "cypress",
+          "cypress-wait-until",
+          "node"
+      ]
+  },
+  "include": [
+      "**/*.ts"
+  ]
+}

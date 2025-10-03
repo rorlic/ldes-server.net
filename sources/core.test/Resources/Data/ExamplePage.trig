@@ -1,0 +1,35 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix wiki: <http://en.wikipedia.org/wiki/> .
+@prefix example: <http://example.org/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ldes: <https://w3id.org/ldes#> .
+@prefix tree: <https://w3id.org/tree#> .
+
+example:ldes a ldes:EventStream ;
+    ldes:versionOfPath dct:isVersionOf ;
+    ldes:timestampPath prov:generatedAtTime ;
+    tree:member wiki:Robin_hood_1, wiki:Little_John_1 .
+   
+wiki:Robin_Hood_1 dct:isVersionOf wiki:Robin_Hood ;
+    prov:generatedAtTime "2025-07-22T17:05:00Z"^^xsd:dateTime .
+    
+wiki:Little_John_1 dct:isVersionOf wiki:Little_John ;
+    prov:generatedAtTime "2025-07-22T17:05:00Z"^^xsd:dateTime .
+
+wiki:Robin_Hood_1 {
+    wiki:Robin_Hood
+        a          foaf:Person ;
+        foaf:name  "Robin Hood" ;
+        foaf:knows wiki:Little_John .
+}
+
+wiki:Little_John_1 {
+    wiki:Little_John
+        a          foaf:Person ;
+        foaf:name  "Little John" ;
+        foaf:knows wiki:Robin_Hood .
+}

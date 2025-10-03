@@ -1,0 +1,261 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+@prefix ldes:   <https://w3id.org/ldes#> .
+@prefix tree:   <https://w3id.org/tree#>.
+
+@prefix lsdn:   <https://ldes-server.net/> .
+@prefix ingest: <https://ldes-server.net/ingest#> .
+
+[
+    a             sh:NodeShape ;
+    sh:targetNode ldes:EventStream ;
+    sh:property   [   a            sh:PropertyShape ;
+                      sh:path      [ sh:inversePath rdf:type ] ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:name      "ldes:EventStream count" ;
+                      sh:message   "LSDN-01 - A collection definition MUST contain exactly one ldes:EventStream"
+                  ],[  a           sh:PropertyShape ;
+                       sh:path     [ sh:inversePath rdf:type ] ;
+                       sh:nodeKind sh:IRI ;
+                       sh:name     "ldes:EventStream identity" ;
+                       sh:message  "LSDN-02 - A collection MUST be identified using a named node (and not a blank node)" 
+                  ] 
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ldes:EventStream ;
+    sh:property    [ a           sh:PropertyShape ;
+                     sh:path      lsdn:ingestion ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:name      "lsdn:ingestion count" ;
+                     sh:message   "LSDN-03 - A collection MAY contain at most one set of ingestion algorithms"
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:splitMessage) ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:name      "ingest:splitMessage count" ;
+                     sh:message   "LSDN-04 - A collection MAY define at most once how a message is split into entities"
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:splitMessage rdf:type) ;
+                     sh:in        (
+                                    ingest:SplitMessageAsSingleEntity 
+                                    ingest:SplitMessageByNamedGraph 
+                                    ingest:SplitMessageByNamedNode 
+                                    ingest:SplitMessageByPredicateAndObject
+                                  ) ;
+                     sh:name      "ingest:splitMessage class" ;
+                     sh:message   "LSDN-05 - A collection MUST only use one of the well-known message splitting algorithms" 
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:identifyEntity) ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:name      "ingest:identifyEntity count" ;
+                     sh:message   "LSDN-07 - A collection MAY define at most once how an entity is identified"
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:identifyEntity rdf:type) ;
+                     sh:in        (
+                                    ingest:IdentifyEntityByEntityType 
+                                    ingest:IdentifyEntityByPredicateAndObject
+                                    ingest:IdentifyEntityBySingleNamedNode
+                                  ) ;
+                     sh:name      "ingest:identifyEntity class" ;
+                     sh:message   "LSDN-08 - A collection MUST only use one of the well-known entity identification algorithms" 
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:identifyVersion) ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:name      "ingest:identifyVersion count" ;
+                     sh:message   "LSDN-11 - A collection MAY define at most once how a version is identified"
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:identifyVersion rdf:type) ;
+                     sh:in        (
+                                    ingest:IdentifyVersionBySubjectAndPredicatePath
+                                    ingest:IdentifyVersionBySubjectAndSequencePath
+                                    ingest:IdentifyVersionWithIngestTimestamp
+                                  ) ;
+                     sh:name      "ingest:identifyVersion class" ;
+                     sh:message   "LSDN-12 - A collection MUST only use one of the well-known version identification algorithms" 
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:identifyMember) ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:name      "ingest:identifyMember count" ;
+                     sh:message   "LSDN-14 - A collection MAY define at most once how a member is identified"
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:identifyMember rdf:type) ;
+                     sh:in        (
+                                    ingest:IdentifyMemberByEntityIdAndVersion
+                                    ingest:IdentifyMemberWithEntityId
+                                  ) ;
+                     sh:name      "ingest:identifyMember class" ;
+                     sh:message   "LSDN-15 - A collection MUST only use one of the well-known member identification algorithms" 
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:createMember) ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:name      "ingest:createMember count" ;
+                     sh:message   "LSDN-17 - A collection MAY define at most once how a member is created"
+                   ], [ a         sh:PropertyShape ;
+                     sh:path      (lsdn:ingestion ingest:createMember rdf:type) ;
+                     sh:in        (
+                                    ingest:CreateMemberAsIs
+                                    ingest:CreateMemberWithEntityMaterialization
+                                  ) ;
+                     sh:name      "ingest:createMember class" ;
+                     sh:message   "LSDN-18 - A collection MUST only use one of the well-known member creation algorithms" 
+                   ],[ a           sh:PropertyShape ;
+                     sh:path      ldes:timestampPath ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:nodeKind  sh:IRI ;
+                     sh:name      "ldes:timestampPath count and node kind" ;
+                     sh:message   "LSDN-25 - A collection MAY define at most one timestamp path as a predicate path"
+                   ],[ a           sh:PropertyShape ;
+                     sh:path      ldes:versionOfPath ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:nodeKind  sh:IRI ;
+                     sh:name      "ldes:versionOfPath count and node kind" ;
+                     sh:message   "LSDN-26 - A collection MAY define at most one version-of path as a predicate path"
+                   ]
+] .
+
+ingest:SplitMessageStrategy
+    a            rdfs:Class ;
+    rdfs:label   "Message splitting algorithm"@en ;
+    rdfs:comment "A(n abstract) class describing how to split a message into its entities"@en .
+
+ingest:SplitMessageAsSingleEntity
+    a               rdfs:Class ;
+    rdfs:subClassOf ingest:SplitMessageStrategy ;
+    rdfs:label      "Single entity splitting"@en ;
+    rdfs:comment    "An algorithm assuming a message contains one entity"@en .
+
+ingest:SplitMessageByNamedGraph
+    a               rdfs:Class ;
+    rdfs:subClassOf ingest:SplitMessageStrategy ;
+    rdfs:label      "Message splitting into named graphs"@en ;
+    rdfs:comment    "An algorithm splitting a message into an entity for each named graph"@en .
+
+ingest:SplitMessageByNamedNode
+    a               rdfs:Class ;
+    rdfs:subClassOf ingest:SplitMessageStrategy ;
+    rdfs:label      "Message splitting into named nodes"@en ;
+    rdfs:comment    "An algorithm splitting a message into an entity for each named node"@en .
+
+ingest:SplitMessageByPredicateAndObject
+    a               rdfs:Class ;
+    rdfs:subClassOf ingest:SplitMessageStrategy ;
+    rdfs:label      "Message splitting using predicate and (optional) object"@en ;
+    rdfs:comment    "An algorithm splitting a message into an entity for each matching predicate and (if provided) object"@en .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ingest:SplitMessageByPredicateAndObject ;
+    sh:property    [  a            sh:PropertyShape ;
+                      sh:path      ingest:p ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:name      "predicate count" ;
+                      sh:message   "LSDN-06 - A SplitMessageByPredicateAndObject MUST specify the predicate and object paths"
+                   ], [  a         sh:PropertyShape ;
+                      sh:path      ingest:o ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:name      "object count" ;
+                      sh:message   "LSDN-06 - A SplitMessageByPredicateAndObject MUST specify the predicate and object paths"
+                   ]
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ingest:IdentifyEntityByEntityType ;
+    sh:property    [  a         sh:PropertyShape ;
+                      sh:path      ingest:o ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:name      "object count" ;
+                      sh:message   "LSDN-09 - An IdentifyEntityByEntityType MUST specify the object path"
+                   ]
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ingest:IdentifyEntityByPredicateAndObject ;
+    sh:property    [  a            sh:PropertyShape ;
+                      sh:path      ingest:p ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:name      "predicate count" ;
+                      sh:message   "LSDN-10 - An IdentifyEntityByPredicateAndObject MUST specify the predicate and object paths"
+                   ], [  a         sh:PropertyShape ;
+                      sh:path      ingest:o ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:name      "object count" ;
+                      sh:message   "LSDN-10 - An IdentifyEntityByPredicateAndObject MUST specify the predicate and object paths"
+                   ]
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ingest:IdentifyVersionBySubjectAndPredicatePath ;
+    sh:property    [  a         sh:PropertyShape ;
+                      sh:path      ingest:p ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:name      "predicate count" ;
+                      sh:message   "LSDN-13 - An IdentifyVersionBySubjectAndPredicatePath MUST specify a predicate path"
+                   ]
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ingest:IdentifyMemberByEntityIdAndVersion ;
+    sh:property    [ a         sh:PropertyShape ;
+                     sh:path      ingest:separator ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:nodeKind  sh:Literal ;
+                     sh:datatype  xsd:string ;
+                     sh:name      "string separator" ;
+                     sh:message   "LSDN-16 - An IdentifyMemberByEntityIdAndVersion MAY specify a string separator"
+                   ]
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ingest:CreateMemberWithEntityMaterialization ;
+    sh:property    [ a         sh:PropertyShape ;
+                     sh:path      ingest:p ;
+                     sh:minCount  0 ;
+                     sh:maxCount  1 ;
+                     sh:nodeKind  sh:IRI ;
+                     sh:name      "IRI predicate" ;
+                     sh:message   "LSDN-19 - A CreateMemberWithEntityMaterialization MAY specify an IRI predicate"
+                   ]
+] .
+
+[
+    a              sh:NodeShape ;
+    sh:targetClass ingest:IdentifyVersionBySubjectAndSequencePath ;
+    sh:property    [  a         sh:PropertyShape ;
+                      sh:path      ingest:p ;
+                      sh:minCount  1 ;
+                      sh:maxCount  1 ;
+                      sh:nodeKind  sh:BlankNode ;
+                      sh:name      "sequence path" ;
+                      sh:message   "LSDN-29 - An IdentifyVersionBySubjectAndSequencePath MUST specify a sequence path"
+                   ], [  a         sh:PropertyShape ;
+                      sh:path      (ingest:p [sh:zeroOrMorePath rdf:rest] rdf:first) ;
+                      sh:nodeKind  sh:IRI ;
+                      sh:name      "sequence path" ;
+                      sh:message   "LSDN-29 - An IdentifyVersionBySubjectAndSequencePath MUST specify a sequence path"
+                   ]
+] .
