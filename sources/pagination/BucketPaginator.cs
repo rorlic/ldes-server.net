@@ -9,7 +9,7 @@ using VDS.RDF.Nodes;
 namespace AquilaSolutions.LdesServer.Pagination;
 
 // TODO: refactor BucketPaginator for readability and performance
-internal class BucketPaginator(
+public class BucketPaginator(
     IBucketRepository bucketRepository,
     IViewRepository viewRepository,
     IPageRepository pageRepository,

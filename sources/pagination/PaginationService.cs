@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AquilaSolutions.LdesServer.Pagination;
 
-internal class PaginationService(
+public class PaginationService(
     BucketPaginatorConfiguration configuration,
     IServiceProvider serviceProvider,
     ILogger<PaginationService> logger) : BackgroundService
