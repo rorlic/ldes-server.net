@@ -8,7 +8,7 @@ public class TriGOutputFormatter : StoreOutputFormatterBase
 {
     public TriGOutputFormatter()
     {
-        SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/x-trig"));
+        SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse(RdfMimeTypes.TriG));
     }
 
     protected override IStoreWriter CreateWriter()

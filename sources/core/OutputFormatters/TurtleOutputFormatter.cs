@@ -1,4 +1,3 @@
-using AquilaSolutions.LdesServer.Core.InputFormatters;
 using Microsoft.Net.Http.Headers;
 using VDS.RDF;
 using VDS.RDF.Writing;
