@@ -8,8 +8,8 @@ using AquilaSolutions.LdesServer.Bucketization;
 using AquilaSolutions.LdesServer.Core.InputFormatters;
 using AquilaSolutions.LdesServer.Core.OutputFormatters;
 using AquilaSolutions.LdesServer.Core.Models.Configuration;
-using AquilaSolutions.LdesServer.Fetching;
-using AquilaSolutions.LdesServer.Fetching.Services;
+using AquilaSolutions.LdesServer.Serving;
+using AquilaSolutions.LdesServer.Serving.Services;
 using AquilaSolutions.LdesServer.Fragmentation;
 using AquilaSolutions.LdesServer.Ingestion.Algorithms;
 using AquilaSolutions.LdesServer.Ingestion.Services;
@@ -29,7 +29,7 @@ var ldesServerConfig = ldesServerConfigSection.Get<LdesServerConfiguration>() ??
 
 var bucketizationConfigSection = ldesServerConfigSection.GetSection("Bucketization");
 var paginationConfigSection = ldesServerConfigSection.GetSection("Pagination");
-var fetchingConfigSection = ldesServerConfigSection.GetSection("Fetching");
+var servingConfigSection = ldesServerConfigSection.GetSection("Serving");
 
 builder.Services
     .AddCors(o => o.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()))
@@ -93,8 +93,8 @@ builder.Services
     .AddTransient<BucketPaginator>()
     .AddHostedService<PaginationService>()
     // fetching
-    .AddSingleton<FetchingConfiguration>(_ =>
-        fetchingConfigSection.Get<FetchingConfiguration>() ?? new FetchingConfiguration())
+    .AddSingleton<ServingConfiguration>(_ =>
+        servingConfigSection.Get<ServingConfiguration>() ?? new ServingConfiguration())
     .AddScoped<NodeService>()
     // web api
     .AddSingleton<ILogger>(sp => sp.GetRequiredService<ILoggerFactory>().CreateLogger("LDES Server .NET"));

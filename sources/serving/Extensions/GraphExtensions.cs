@@ -3,7 +3,7 @@ using AquilaSolutions.LdesServer.Core.Models;
 using AquilaSolutions.LdesServer.Core.Namespaces;
 using VDS.RDF;
 
-namespace AquilaSolutions.LdesServer.Fetching.Extensions;
+namespace AquilaSolutions.LdesServer.Serving.Extensions;
 
 internal static class GraphExtensions
 {

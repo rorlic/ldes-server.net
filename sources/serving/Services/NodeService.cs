@@ -4,14 +4,14 @@ using AquilaSolutions.LdesServer.Core.Interfaces;
 using AquilaSolutions.LdesServer.Core.Models;
 using AquilaSolutions.LdesServer.Core.Models.Configuration;
 using AquilaSolutions.LdesServer.Core.Namespaces;
-using AquilaSolutions.LdesServer.Fetching.Extensions;
+using AquilaSolutions.LdesServer.Serving.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using VDS.RDF;
 
-namespace AquilaSolutions.LdesServer.Fetching.Services;
+namespace AquilaSolutions.LdesServer.Serving.Services;
 
 public class NodeService(
-    FetchingConfiguration fetchingConfiguration,
+    ServingConfiguration servingConfiguration,
     IServiceProvider serviceProvider,
     ICollectionRepository collectionRepository,
     IViewRepository viewRepository,
@@ -131,7 +131,7 @@ public class NodeService(
 
     private LdesNode CreateLdesNode(IGraph g, IEnumerable<Member> members, bool open, DateTime updatedAt)
     {
-        var maxAge = open ? fetchingConfiguration.MaxAge : fetchingConfiguration.MaxAgeImmutable;
+        var maxAge = open ? servingConfiguration.MaxAge : servingConfiguration.MaxAgeImmutable;
         return new LdesNode(g.WithoutCustomDefinition(), members,
             new LdesNode.Info(updatedAt, TimeSpan.FromSeconds(maxAge), open));
     }

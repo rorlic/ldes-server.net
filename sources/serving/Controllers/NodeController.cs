@@ -1,9 +1,9 @@
-using AquilaSolutions.LdesServer.Fetching.Services;
+using AquilaSolutions.LdesServer.Serving.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AquilaSolutions.LdesServer.Fetching.Controllers;
+namespace AquilaSolutions.LdesServer.Serving.Controllers;
 
 [ApiController]
 [Route("feed")]

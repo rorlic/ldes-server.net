@@ -86,12 +86,12 @@ For the fragmentation, you can specify the following values in a custom configur
 }
 ```
 
-### Fetching Settings
+### Serving Settings
 When an LDES Client requests an LDES page from the server, it needs to indicate if that page is immutable (no more members will be added) or not. In both cases, the server will add a configurable period of time (seconds) to indicate for how long the page does not need to be requested again.
 
 The following settings are used for that and can be tuned:
-* `$/LdesServer/Fetching/MaxAge`: a period of time in seconds to indicate a mutable page freshness. Defaults to `60` seconds.
-* `$/LdesServer/Fetching/MaxAgeImmutable`: a period of time in seconds to indicate an immutable page freshness. Defaults to `604800` seconds (one week).
+* `$/LdesServer/Serving/MaxAge`: a period of time in seconds to indicate a mutable page freshness. Defaults to `60` seconds.
+* `$/LdesServer/Serving/MaxAgeImmutable`: a period of time in seconds to indicate an immutable page freshness. Defaults to `604800` seconds (one week).
 
 ### Logging
 The server uses ASP.NET core web application's standard mechanism for logging. All custom logging can be enabled by setting the log level of a class or namespace starting with `AquilaSolutions.LdesServer`. As the server uses `Npgsql` for Postgres database access, you can also enable database logging.

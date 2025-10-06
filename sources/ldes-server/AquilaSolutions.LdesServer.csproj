@@ -17,7 +17,7 @@
       <ProjectReference Include="..\administration\AquilaSolutions.LdesServer.Administration.csproj" />
       <ProjectReference Include="..\bucketization\AquilaSolutions.LdesServer.Bucketization.csproj" />
       <ProjectReference Include="..\core\AquilaSolutions.LdesServer.Core.csproj" />
-      <ProjectReference Include="..\fetching\AquilaSolutions.LdesServer.Fetching.csproj" />
+      <ProjectReference Include="..\serving\AquilaSolutions.LdesServer.Serving.csproj" />
       <ProjectReference Include="..\ingestion\AquilaSolutions.LdesServer.Ingestion.csproj" />
       <ProjectReference Include="..\pagination\AquilaSolutions.LdesServer.Pagination.csproj" />
     </ItemGroup>

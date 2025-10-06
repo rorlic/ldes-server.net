@@ -1,13 +1,13 @@
 using AquilaSolutions.LdesServer.Core.Extensions;
 using AquilaSolutions.LdesServer.Core.Namespaces;
-using AquilaSolutions.LdesServer.Fetching.Extensions;
+using AquilaSolutions.LdesServer.Serving.Extensions;
 using VDS.RDF;
 using VDS.RDF.Nodes;
 using VDS.RDF.Writing;
 using VDS.RDF.Writing.Formatting;
 using Xunit.Abstractions;
 
-namespace AquilaSolutions.LdesServer.Fetching.Test;
+namespace AquilaSolutions.LdesServer.Serving.Test;
 
 public class ProfileTest(ITestOutputHelper testOutputHelper)
 {

@@ -3,14 +3,14 @@ using System.Text;
 using AquilaSolutions.LdesServer.Core.Interfaces;
 using AquilaSolutions.LdesServer.Core.Models;
 using AquilaSolutions.LdesServer.Core.Models.Configuration;
-using AquilaSolutions.LdesServer.Fetching.Services;
-using AquilaSolutions.LdesServer.Fetching.Test.Extensions;
+using AquilaSolutions.LdesServer.Serving.Services;
+using AquilaSolutions.LdesServer.Serving.Test.Extensions;
 using FluentAssertions;
 using Moq;
 using VDS.RDF;
 using Xunit.Abstractions;
 
-namespace AquilaSolutions.LdesServer.Fetching.Test.Services;
+namespace AquilaSolutions.LdesServer.Serving.Test.Services;
 
 public class GetNodeTest(ITestOutputHelper helper)
 {
@@ -104,7 +104,7 @@ public class GetNodeTest(ITestOutputHelper helper)
         pageRepositoryMock.Setup(x => x.GetPageAsync(transaction.Object, collection, View.DefaultName, PageName))
             .ReturnsAsync(page);
 
-        return new NodeService(new FetchingConfiguration(), serviceProvider.Object, collectionRepositoryMock.Object,
+        return new NodeService(new ServingConfiguration(), serviceProvider.Object, collectionRepositoryMock.Object,
             viewRepositoryMock.Object, pageRepositoryMock.Object);
     }
 

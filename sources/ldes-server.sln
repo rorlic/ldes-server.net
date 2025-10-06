@@ -18,11 +18,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer", "ldes-server\AquilaSolutions.LdesServer.csproj", "{9A6C4FCB-5FA8-4F66-A489-CAA1C5593DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Fetching", "fetching\AquilaSolutions.LdesServer.Fetching.csproj", "{34249450-8825-49A7-897D-477B3B64D2DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Serving", "serving\AquilaSolutions.LdesServer.Serving.csproj", "{34249450-8825-49A7-897D-477B3B64D2DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Administration.Test", "administration.test\AquilaSolutions.LdesServer.Administration.Test.csproj", "{0D1427DA-AA57-4BEC-BAE2-667F84165B14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Fetching.Test", "fetching.test\AquilaSolutions.LdesServer.Fetching.Test.csproj", "{9B31AFA0-8A79-45A2-A5D0-BF23637A8CF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Serving.Test", "serving.test\AquilaSolutions.LdesServer.Serving.Test.csproj", "{9B31AFA0-8A79-45A2-A5D0-BF23637A8CF3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Fragmentation", "fragmentation\AquilaSolutions.LdesServer.Fragmentation.csproj", "{C457A0D3-2700-4D1B-98C4-45278FE91B56}"
 EndProject

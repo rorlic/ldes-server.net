@@ -4,7 +4,7 @@ using VDS.RDF.Writing;
 using Xunit.Abstractions;
 using StringWriter = VDS.RDF.Writing.StringWriter;
 
-namespace AquilaSolutions.LdesServer.Fetching.Test.Extensions;
+namespace AquilaSolutions.LdesServer.Serving.Test.Extensions;
 
 public static class TestOutputHelperExtensions
 {
