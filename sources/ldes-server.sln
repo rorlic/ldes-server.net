@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Pagination", "pagination\AquilaSolutions.LdesServer.Pagination.csproj", "{C646062C-648B-4D3F-A696-D8002B828FD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer", "server\AquilaSolutions.LdesServer.csproj", "{9A6C4FCB-5FA8-4F66-A489-CAA1C5593DD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer", "ldes-server\AquilaSolutions.LdesServer.csproj", "{9A6C4FCB-5FA8-4F66-A489-CAA1C5593DD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquilaSolutions.LdesServer.Fetching", "fetching\AquilaSolutions.LdesServer.Fetching.csproj", "{34249450-8825-49A7-897D-477B3B64D2DA}"
 EndProject

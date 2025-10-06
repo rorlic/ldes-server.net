@@ -51,6 +51,7 @@ builder.Services
     });
 
 builder.Services
+    .Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; })
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
     .AddExceptionHandler<GlobalExceptionHandler>()
@@ -77,7 +78,6 @@ builder.Services
     .AddTransient<IViewService, ViewService>()
     .AddSingleton<DefinitionsInitializer>()
     // ingestion
-    .Configure<KestrelServerOptions>(options => { options.AllowSynchronousIO = true; })
     .AddSingleton<IIngestAlgorithmFactory, IngestAlgorithmFactory>()
     .AddScoped<MemberService>()
     // bucketization
