@@ -186,7 +186,7 @@ public class DefinitionsInitializer(
 
     private static Definition CreateDefinition(LinkedDataFile rdf)
     {
-        var graph = rdf.Graph;
+        var graph = rdf.Graph.WithStandardPrefixes();
         var collectionTriple = graph.GetTriplesWithPredicateObject(
                 graph.CreateUriNode(QNames.rdf.type), graph.CreateUriNode(QNames.ldes.EventStream))
             .SingleOrDefault();
