@@ -4,7 +4,6 @@ using AquilaSolutions.LdesServer.Administration.Validators;
 using AquilaSolutions.LdesServer.Core.Extensions;
 using AquilaSolutions.LdesServer.Core.Interfaces;
 using AquilaSolutions.LdesServer.Core.Models;
-using AquilaSolutions.LdesServer.Core.Models.Configuration;
 using AquilaSolutions.LdesServer.Core.Namespaces;
 using FluentValidation.Results;
 using VDS.RDF;
@@ -14,7 +13,6 @@ using StringWriter = VDS.RDF.Writing.StringWriter;
 namespace AquilaSolutions.LdesServer.Administration.Services;
 
 public class ViewService(
-    LdesServerConfiguration configuration,
     IDbConnection connection,
     ICollectionRepository collectionRepository,
     IViewRepository viewRepository) : IViewService

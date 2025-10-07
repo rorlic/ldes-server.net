@@ -3,7 +3,6 @@ using AquilaSolutions.LdesServer.Administration.Services;
 using AquilaSolutions.LdesServer.Core.Extensions;
 using AquilaSolutions.LdesServer.Core.Interfaces;
 using AquilaSolutions.LdesServer.Core.Models;
-using AquilaSolutions.LdesServer.Core.Models.Configuration;
 using FluentAssertions;
 using Moq;
 using VDS.RDF;
@@ -30,7 +29,7 @@ public class ViewServiceTests
                 It.IsAny<string>()))
             .ReturnsAsync(view);
 
-        return new ViewService(new LdesServerConfiguration(), connection.Object, collectionRepository.Object,
+        return new ViewService(connection.Object, collectionRepository.Object,
             viewRepository.Object);
     }
 
