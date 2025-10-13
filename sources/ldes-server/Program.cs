@@ -87,13 +87,13 @@ builder.Services
         bucketizationConfigSection.Get<MemberBucketizerConfiguration>() ?? new MemberBucketizerConfiguration())
     .AddTransient<MemberBucketizer>()
     .AddTransient<BucketizerService>()
-    .AddHostedService<BucketizerServiceWrapper>()
+    .AddHostedService<BucketizerBackgroundService>()
     // pagination
     .AddSingleton<BucketPaginatorConfiguration>(_ =>
         paginationConfigSection.Get<BucketPaginatorConfiguration>() ?? new BucketPaginatorConfiguration())
     .AddTransient<BucketPaginator>()
     .AddTransient<PaginationService>()
-    .AddHostedService<PaginationServiceWrapper>()
+    .AddHostedService<PaginationBackgroundService>()
     // fetching
     .AddSingleton<ServingConfiguration>(_ =>
         servingConfigSection.Get<ServingConfiguration>() ?? new ServingConfiguration())
