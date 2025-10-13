@@ -29,15 +29,14 @@ public interface IViewRepository
     /// </summary>
     /// <param name="transaction">Database transaction</param>
     /// <returns>View that can be bucketized or null</returns>
-    Task<View?> GetViewsReadyForBucketizationAsync(IDbTransaction transaction);
+    Task<View?> GetViewReadyForBucketizationAsync(IDbTransaction transaction);
 
     /// <summary>
-    /// Retrieves the view the given bucket belongs to
+    /// Retrieve at most one view that is ready for pagination (i.e. new members bucketized)
     /// </summary>
-    /// <param name="connection">Database connection</param>
-    /// <param name="bucket">The bucket</param>
-    /// <returns>The view containing this bucket or null if currently not available (due to concurrency)</returns>
-    Task<View?> GetViewByBucketAsync(IDbConnection connection, Bucket bucket);
+    /// <param name="transaction">Database transaction</param>
+    /// <returns>View that can be paginated or null</returns>
+    Task<View?> GetViewReadyForPaginationAsync(IDbTransaction transaction);
 
     /// <summary>
     /// Create a view with the given name and definition for the given collection
@@ -60,8 +59,7 @@ public interface IViewRepository
     Task<bool> DeleteViewAsync(IDbTransaction transaction, Collection collection, string name);
 
     /// <summary>
-    /// Sets the last bucketized member set and updates the view statistics (which is used for metrics)
-    /// by incrementing the number of members that have been bucketized for the given view
+    /// Updates the bucketization statistics for the given view
     /// </summary>
     /// <param name="transaction">Database transaction</param>
     /// <param name="view">The view</param>
@@ -69,4 +67,12 @@ public interface IViewRepository
     /// <param name="bucketizedCount">The number of bucketized members to increment the statistics with</param>
     /// <returns>True if updated, false otherwise</returns>
     Task<bool> UpdateBucketizationStatisticsAsync(IDbTransaction transaction, View view, IMemberSet[] memberSets, int bucketizedCount);
+
+    /// <summary>
+    /// Updates the pagination statistics for the given view
+    /// </summary>
+    /// <param name="transaction">Database transaction</param>
+    /// <param name="view">The view</param>
+    /// <returns>True if success, false otherwise</returns>
+    Task<bool> UpdatePaginationStatisticsAsync(IDbTransaction transaction, View view);
 }

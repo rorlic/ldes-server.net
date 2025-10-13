@@ -27,7 +27,6 @@
       <EmbeddedResource Include="Scripts\20250304T145300.create-page-relations.sql" />
       <EmbeddedResource Include="Scripts\20250304T150900.create-page-members.sql" />
       <EmbeddedResource Include="Scripts\20250827T210800.create-bucket-members.sql" />
-      <EmbeddedResource Include="Scripts\20250901T170000.create-view-stats.sql" />
       <EmbeddedResource Include="Scripts\20250901T171600.create-fragmentation-progress.sql" />
     </ItemGroup>
 

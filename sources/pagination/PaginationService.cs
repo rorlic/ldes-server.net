@@ -39,7 +39,9 @@ public class PaginationService(
                 var done = false;
                 while (!done)
                 {
-                    done = !await bucketPaginator.TryPaginateBucketsAsync(connection, memberBatchSize, defaultPageSize);
+                    done = !await bucketPaginator
+                        .TryPaginateBucketsAsync(connection, memberBatchSize, defaultPageSize)
+                        .ConfigureAwait(false);
 
                     if (cancellationToken.IsCancellationRequested)
                     {

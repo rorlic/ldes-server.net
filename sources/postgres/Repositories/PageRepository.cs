@@ -78,17 +78,17 @@ public class PageRepository(ILogger<PageRepository> logger) : IPageRepository
         }
     }
 
-    async Task<IEnumerable<IMember>> IPageRepository.GetMembersReadyForPaginationAsync(IDbTransaction transaction,
-        Bucket bucket, int maxCount)
+    async Task<IEnumerable<IMember>> IPageRepository.GetMembersReadyForPaginationAsync(IDbTransaction transaction, Bucket bucket)
     {
         var bucketRecord = bucket as BucketRecord;
         ArgumentNullException.ThrowIfNull(bucketRecord);
 
         var bucketId = bucketRecord.Bid;
+        var lastMid = bucketRecord.LastMid;
         try
         {
             var memberIds = await transaction
-                .QueryAsync<long>(Sql.Bucket.GetMembersToPaginate, new { Bid = bucketId, Count = maxCount })
+                .QueryAsync<long>(Sql.Bucket.GetMembersToPaginate, new { Bid = bucketId, LastMid = lastMid })
                 .ConfigureAwait(false);
             return memberIds.Select(x => new MemberId(x)).ToArray();
         }
@@ -96,31 +96,6 @@ public class PageRepository(ILogger<PageRepository> logger) : IPageRepository
         {
             logger.LogError(exception, $"Cannot retrieve available members for bucket with id '{bucketId}'");
             throw;
-        }
-    }
-
-    async Task<bool> IPageRepository.SetLastPaginatedMemberAsync(IDbTransaction transaction, Bucket bucket,
-        IMember[] members)
-    {
-        var bucketRecord = bucket as BucketRecord;
-        ArgumentNullException.ThrowIfNull(bucketRecord);
-
-        var bucketId = bucketRecord.Bid;
-        var memberIds = members.Cast<MemberId>().Select(x => x.Id);
-        var lastMid = memberIds.Last();
-        try
-        {
-            var affected = await transaction
-                .ExecuteAsync(Sql.Bucket.UpdateLastPaginated,
-                    new { Bid = bucketId, LastMid = lastMid })
-                .ConfigureAwait(false);
-            return affected == 1;
-        }
-        catch (PostgresException exception)
-        {
-            logger.LogError(exception,
-                $"Cannot set last paginated member id '{lastMid}' for bucket with id '{bucketId}'");
-            return false;
         }
     }
 
@@ -136,13 +111,14 @@ public class PageRepository(ILogger<PageRepository> logger) : IPageRepository
         try
         {
             var values = string.Join(",", ids.Select(x => $"({x})"));
+            var removeBucketMembersCmd = Sql.Bucket.RemoveBucketMembers.Replace("@Ids", string.Join(",", ids));
             var deleted = await transaction
-                .ExecuteAsync(Sql.Bucket.RemoveBucketMembers.Replace("@Ids", string.Join(",", ids)),
-                    new { Bid = bucketId })
+                .ExecuteAsync(removeBucketMembersCmd, new { Bid = bucketId })
                 .ConfigureAwait(false);
+
+            var associateMembersToPageCommand = Sql.Page.AssociateMembersToPage.Replace("@Ids", values);
             var affected = await transaction
-                .ExecuteAsync(Sql.Page.AssociateMembersToPage.Replace("@Ids", values),
-                    new { Pid = pageId, Vid = viewId })
+                .ExecuteAsync(associateMembersToPageCommand, new { Pid = pageId, Vid = viewId })
                 .ConfigureAwait(false);
 
             if (deleted != affected)

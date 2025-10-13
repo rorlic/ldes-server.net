@@ -30,13 +30,28 @@ ON COLUMN bucketization_stats.total is 'counter for number of bucketized members
 ALTER TABLE "bucketization_stats"
     ADD FOREIGN KEY ("vid") REFERENCES "views" ("vid");
 
-CREATE FUNCTION create_bucketization_stats()
+-- create pagination statistics table
+CREATE TABLE pagination_stats
+(
+    vid     smallint NOT NULL,
+--     lastTxn bigint   NOT NULL default 0,
+    total   bigint   NOT NULL default 0
+);
+-- COMMENT
+-- ON COLUMN pagination_stats.lastTxn is 'the last, per-view paginated member txn id, always increasing';
+COMMENT
+ON COLUMN pagination_stats.total is 'counter for number of paginated members, always increasing';
+ALTER TABLE "pagination_stats"
+    ADD FOREIGN KEY ("vid") REFERENCES "views" ("vid");
+
+-- create view stats trigger
+CREATE FUNCTION create_view_stats()
     RETURNS TRIGGER
     LANGUAGE PLPGSQL
 AS $$
 BEGIN
-insert into bucketization_stats(vid)
-values (NEW.vid);
+insert into bucketization_stats(vid) values (NEW.vid);
+insert into pagination_stats(vid) values (NEW.vid);
 RETURN NULL;
 END;
 $$;
@@ -45,5 +60,10 @@ CREATE
 OR REPLACE TRIGGER ai_views
     AFTER insert
     ON views
-    FOR EACH ROW EXECUTE FUNCTION create_bucketization_stats();
+    FOR EACH ROW EXECUTE FUNCTION create_view_stats();
 
+-- create view statistics table
+CREATE OR REPLACE VIEW view_stats AS
+select bs.vid, bs.total as bucketized, ps.total as paginated
+from bucketization_stats bs 
+inner join pagination_stats ps on ps.vid = bs.vid;

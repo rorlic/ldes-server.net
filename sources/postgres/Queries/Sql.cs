@@ -56,16 +56,27 @@ public static class Sql
             "where bs.lastTxn < (select max(txn) from member_txn_ranges t where t.cid = v.cid) " +
             "order by bs.lastTxn " +
             "for no key update of bs skip locked limit 1";
+        
+        public const string UpdateBucketizationStatistics =
+            "update bucketization_stats set lastTxn = @LastTxn, total = total + @BucketizedCount where vid = @Vid";
 
         public const string GetStatsForDeletion =
             "select vid, lastTxn, total from bucketization_stats where vid = @Vid for update";
 
         public const string GetById =
             "select vid, cid, name, definition from views v where vid = @Vid";
-        
-        public const string UpdateLastBucketizedAndBucketizedCount =
-            "update bucketization_stats set lastTxn = @LastTxn, total = total + @BucketizedCount where vid = @Vid";
 
+        public const string GetReadyForPagination =
+            "select ps.vid, ps.total, bm.mid as firstMid from pagination_stats ps "+
+            "inner join bucket_members bm on bm.vid = ps.vid " +
+            "order by bm.mid, ps.vid " +
+            "for no key update of ps skip locked limit 1";
+        
+        public const string UpdatePaginatedStatistics =
+            "update pagination_stats set total = "+
+            "(select bs.total from bucketization_stats bs where bs.vid = @Vid) - "+
+            "(select count(distinct bm.mid) from bucket_members bm where bm.vid = @Vid) "+
+            "where vid = @Vid";
     }
 
     public static class Member
@@ -106,11 +117,9 @@ public static class Sql
         public const string DeleteByView =
             "delete from buckets where vid = @Vid";
 
-        public const string GetReadyForPagination =
-            "select b.bid, b.vid, b.lastMid from buckets b " +
-            "where b.lastMid < (select max(bm.mid) from bucket_members bm where bm.bid = b.bid) " +
-            "order by b.bid "+
-            "for no key update of b skip locked limit 1";
+        public const string GetReadyForPaginationByView =
+            "select b.bid, b.vid, b.key from buckets b where b.bid in " +
+            "(select distinct(bm.bid) from bucket_members bm where bm.vid = @Vid and bm.mid < @LastMid)";
         
         public const string GetByViewForDeletion =
             "select bid, vid, key from buckets where vid = @Vid for update";
@@ -123,9 +132,6 @@ public static class Sql
 
         public const string GetByViewAndKey =
             "select bid, vid, key from buckets where vid = @Vid and key = @Key";
-
-        public const string UpdateLastPaginated =
-            "update buckets set lastMid = @LastMid where bid = @Bid"; 
         
         public const string CreateByBucketizableMembers =
             "insert into bucket_members(bid, vid, mid) " +
@@ -135,7 +141,7 @@ public static class Sql
             "insert into bucket_members(bid, vid, mid) values (@Bid, @Vid, @Mid)";
 
         public const string GetMembersToPaginate =
-            "select mid from bucket_members where bid = @Bid order by mid limit @Count"; 
+            "select mid from bucket_members where bid = @Bid and mid < @LastMid order by mid"; 
         
         public const string RemoveBucketMembers =
             "delete from bucket_members where bid = @Bid and mid in (@Ids)";

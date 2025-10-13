@@ -23,7 +23,7 @@ public class MemberBucketizer(
         using var transaction = connection.BeginTransaction();
 
         var view = await viewRepository
-            .GetViewsReadyForBucketizationAsync(transaction)
+            .GetViewReadyForBucketizationAsync(transaction)
             .ConfigureAwait(false);
 
         if (view is null)

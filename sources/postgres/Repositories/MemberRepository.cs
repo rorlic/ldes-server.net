@@ -88,7 +88,7 @@ public class MemberRepository(ILogger<MemberRepository> logger) : IMemberReposit
         var viewRecord = view as ViewRecord;
         ArgumentNullException.ThrowIfNull(viewRecord);
         var collectionId = viewRecord.Cid;
-        var lastTxn = viewRecord.Statistics!.LastTxn;
+        var lastTxn = viewRecord.BucketizationStatistics!.LastTxn;
         
         try
         {

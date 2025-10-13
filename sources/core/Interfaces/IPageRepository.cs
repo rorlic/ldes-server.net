@@ -48,14 +48,12 @@ public interface IPageRepository
     Task<Page> GetDefaultBucketRootPageAsync(IDbTransaction transaction, View view);
 
     /// <summary>
-    /// Retrieves the given max count of members that are assigned to the given bucket and can be paginated  
+    /// Retrieves the members that are assigned to the given bucket and can be paginated
     /// </summary>
     /// <param name="transaction">Database transaction</param>
     /// <param name="bucket">The bucket</param>
-    /// <param name="maxCount">Batch size</param>
     /// <returns>Returns the identifiers of the members ready for pagination under the given bucket</returns>
-    Task<IEnumerable<IMember>> GetMembersReadyForPaginationAsync(IDbTransaction transaction, Bucket bucket,
-        int maxCount);
+    Task<IEnumerable<IMember>> GetMembersReadyForPaginationAsync(IDbTransaction transaction, Bucket bucket);
 
     /// <summary>
     /// Assign the given members to the given page
@@ -95,15 +93,6 @@ public interface IPageRepository
     /// <returns>The newly created page or null if the page could not be closed or
     /// the new page could not be created</returns>
     Task<Page?> ClosePageAndLinkToNewPageAsync(IDbTransaction transaction, Page page, string newPageName);
-
-    /// <summary>
-    /// Sets the last paginated member for the given bucket
-    /// </summary>
-    /// <param name="transaction">Database transaction</param>
-    /// <param name="bucket">The bucket</param>
-    /// <param name="members">The paginated members</param>
-    /// <returns>True if success, false otherwise</returns>
-    Task<bool> SetLastPaginatedMemberAsync(IDbTransaction transaction, Bucket bucket, IMember[] members);
 
     /// <summary>
     /// Adds the given page relations to the page

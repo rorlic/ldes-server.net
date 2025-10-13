@@ -3,7 +3,6 @@ using AquilaSolutions.LdesServer.Core.Interfaces;
 using AquilaSolutions.LdesServer.Core.Models;
 using AquilaSolutions.LdesServer.Storage.Postgres.Models;
 using AquilaSolutions.LdesServer.Storage.Postgres.Queries;
-using Dapper;
 using Dapper.Transaction;
 using Microsoft.Extensions.Logging;
 using Npgsql;
@@ -112,24 +111,28 @@ public class ViewRepository(ILogger<ViewRepository> logger) : IViewRepository
         }
     }
 
-    async Task<View?> IViewRepository.GetViewByBucketAsync(IDbConnection connection, Bucket bucket)
+    async Task<View?> IViewRepository.GetViewReadyForPaginationAsync(IDbTransaction transaction)
     {
-        ArgumentNullException.ThrowIfNull(bucket as BucketRecord);
-        var viewId = (bucket as BucketRecord)!.Vid;
         try
         {
-            return await connection
-                .QuerySingleOrDefaultAsync<ViewRecord>(Sql.View.GetById, new { Vid = viewId })
+            var stats = await transaction
+                .QuerySingleOrDefaultAsync<PaginationStatistics>(Sql.View.GetReadyForPagination)
                 .ConfigureAwait(false);
+            if (stats is null) return null;
+
+            var view = await transaction
+                .QuerySingleAsync<ViewRecord>(Sql.View.GetById, new { stats.Vid })
+                .ConfigureAwait(false);
+            view.PaginationStatistics = stats;
+            return view;
         }
         catch (PostgresException exception)
         {
-            logger.LogError(exception, $"Cannot find view with ID '{viewId}'");
-            return null;
+            logger.LogError(exception, "Cannot retrieve views ready for bucketization");
+            throw;
         }
     }
-
-    async Task<View?> IViewRepository.GetViewsReadyForBucketizationAsync(IDbTransaction transaction)
+    async Task<View?> IViewRepository.GetViewReadyForBucketizationAsync(IDbTransaction transaction)
     {
         try
         {
@@ -141,7 +144,7 @@ public class ViewRepository(ILogger<ViewRepository> logger) : IViewRepository
             var view = await transaction
                 .QuerySingleAsync<ViewRecord>(Sql.View.GetById, new { stats.Vid })
                 .ConfigureAwait(false);
-            view.Statistics = stats;
+            view.BucketizationStatistics = stats;
             return view;
         }
         catch (PostgresException exception)
@@ -165,7 +168,7 @@ public class ViewRepository(ILogger<ViewRepository> logger) : IViewRepository
         try
         {
             var affected = await transaction
-                .ExecuteAsync(Sql.View.UpdateLastBucketizedAndBucketizedCount,
+                .ExecuteAsync(Sql.View.UpdateBucketizationStatistics,
                     new { Vid = viewId, LastTxn = lastTxn, BucketizedCount = bucketizedCount })
                 .ConfigureAwait(false);
             return affected == 1;
@@ -177,8 +180,29 @@ public class ViewRepository(ILogger<ViewRepository> logger) : IViewRepository
             return false;
         }
     }
+    
+    
+    async Task<bool> IViewRepository.UpdatePaginationStatisticsAsync(IDbTransaction transaction, View view)
+    {
+        var viewRecord = view as ViewRecord;
+        ArgumentNullException.ThrowIfNull(viewRecord);
 
+        var viewId = viewRecord.Vid;
+        try
+        {
+            var affected = await transaction
+                .ExecuteAsync(Sql.View.UpdatePaginatedStatistics, new { Vid = viewId })
+                .ConfigureAwait(false);
+            return affected == 1;
+        }
+        catch (PostgresException exception)
+        {
+            logger.LogError(exception, $"Cannot update pagination statistics for view '{view.Name}' with ID {viewId}");
+            return false;
+        }
+    }
 
+    
     async Task<bool> IViewRepository.DeleteViewAsync(IDbTransaction transaction, Collection collection, string viewName)
     {
         ArgumentNullException.ThrowIfNull(collection as CollectionRecord);

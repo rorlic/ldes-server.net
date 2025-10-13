@@ -26,11 +26,14 @@ public interface IBucketRepository
     Task<Bucket?> GetBucketAsync(IDbTransaction transaction, View view, string bucketKey);
 
     /// <summary>
-    /// Retrieves the buckets that are ready for pagination (i.e. bucketized members)
+    /// Retrieves the buckets that are ready for pagination (i.e. have bucketized members) for the given view 
+    /// and limiting the amount of members to the batch size.
     /// </summary>
     /// <param name="transaction">Database transaction</param>
+    /// <param name="view">The view</param>
+    /// <param name="maxCount">Batch size</param>
     /// <returns>Set of buckets that can be paginated</returns>
-    Task<Bucket?> GetReadyForPaginationAsync(IDbTransaction transaction);
+    Task<IEnumerable<Bucket>> GetReadyForPaginationAsync(IDbTransaction transaction, View view, short maxCount);
 
     /// <summary>
     /// Retrieves the default bucket for the given view

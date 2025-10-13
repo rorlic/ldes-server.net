@@ -33,24 +33,25 @@ public class BucketRepository(ILogger<BucketRepository> logger) : IBucketReposit
         }
     }
 
-    async Task<Bucket?> IBucketRepository.GetReadyForPaginationAsync(IDbTransaction transaction)
+    async Task<IEnumerable<Bucket>> IBucketRepository.GetReadyForPaginationAsync(IDbTransaction transaction, View view, short maxCount)
     {
+        var viewRecord = view as ViewRecord;
+        ArgumentNullException.ThrowIfNull(viewRecord);
+
+        var viewId = viewRecord.Vid;
+        var stats = viewRecord.PaginationStatistics;
+        var lastMid = stats!.FirstMid + maxCount; // approx. batch size
         try
         {
-            var stats = await transaction
-                .QuerySingleOrDefaultAsync<PaginationStatistics>(Sql.Bucket.GetReadyForPagination)
+            var buckets = await transaction
+                .QueryAsync<BucketRecord>(Sql.Bucket.GetReadyForPaginationByView, 
+                    new { Vid = viewId, LastMid = lastMid })
                 .ConfigureAwait(false);
-            if (stats is null) return null;
-
-            var bucket = await transaction
-                .QuerySingleAsync<BucketRecord>(Sql.Bucket.GetById, new { stats.Bid })
-                .ConfigureAwait(false);
-            bucket.Statistics = stats;
-            return bucket;
+            return buckets.Select(x => { x.LastMid = lastMid; return x; });
         }
         catch (PostgresException exception)
         {
-            logger.LogError(exception, "Cannot retrieve buckets ready for pagination");
+            logger.LogError(exception, "Cannot retrieve buckets ready for pagination by view");
             throw;
         }
     }
