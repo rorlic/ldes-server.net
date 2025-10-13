@@ -36,10 +36,10 @@ public class PaginationService(
             try
             {
                 using var connection = serviceProvider.GetRequiredService<IDbConnection>();
-                var done = false;
-                while (!done)
+                bool processed;
+                do
                 {
-                    done = !await bucketPaginator
+                    processed = await bucketPaginator
                         .TryPaginateBucketsAsync(connection, memberBatchSize, defaultPageSize)
                         .ConfigureAwait(false);
 
@@ -48,7 +48,7 @@ public class PaginationService(
                         logger.LogInformation($"{workerId}: Cancellation requested.");
                         return;
                     }
-                }
+                } while (processed);
             }
             catch (DbException exception)
             {

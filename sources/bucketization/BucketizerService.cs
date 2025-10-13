@@ -34,10 +34,10 @@ public class BucketizerService(
             try
             {
                 using var connection = serviceProvider.GetRequiredService<IDbConnection>();
-                var done = false;
-                while (!done)
+                bool processed;
+                do
                 {
-                    done = !await memberBucketizer
+                    processed = await memberBucketizer
                         .TryBucketizeViewAsync(connection, memberBatchSize)
                         .ConfigureAwait(false);
 
@@ -46,7 +46,7 @@ public class BucketizerService(
                         logger.LogInformation($"{workerId}: Cancellation requested.");
                         return;
                     }
-                }
+                } while (processed);
             }
             catch (DbException exception)
             {
