@@ -16,9 +16,9 @@ public class MemberBucketizer(
     TimeBucketizer timeBucketizer,
     ILogger<MemberBucketizer> logger)
 {
-    internal string WorkerId { get; } = Guid.NewGuid().ToString();
+    public string WorkerId { get; } = Guid.NewGuid().ToString();
 
-    internal async Task<bool> TryBucketizeViewAsync(IDbConnection connection, short memberBatchSize)
+    public async Task<bool> TryBucketizeViewAsync(IDbConnection connection, short memberBatchSize)
     {
         using var transaction = connection.BeginTransaction();
 

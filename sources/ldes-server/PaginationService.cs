@@ -1,10 +1,8 @@
 using System.Data;
 using System.Data.Common;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using AquilaSolutions.LdesServer.Pagination;
 
-namespace AquilaSolutions.LdesServer.Pagination;
+namespace AquilaSolutions.LdesServer;
 
 public class PaginationService(
     BucketPaginatorConfiguration configuration,

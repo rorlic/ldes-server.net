@@ -15,9 +15,9 @@ public class BucketPaginator(
     IPageRepository pageRepository,
     ILogger<BucketPaginator> logger)
 {
-    internal string WorkerId { get; } = Guid.NewGuid().ToString();
+    public string WorkerId { get; } = Guid.NewGuid().ToString();
 
-    internal async Task<bool> TryPaginateBucketsAsync(IDbConnection connection, short memberBatchSize, short defaultPageSize)
+    public async Task<bool> TryPaginateBucketsAsync(IDbConnection connection, short memberBatchSize, short defaultPageSize)
     {
         using var transaction = connection.BeginTransaction();
 
