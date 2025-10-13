@@ -30,7 +30,7 @@ public class DefaultBucketizer(
             return null;
         }
 
-        logger.LogInformation($"Default bucketizing {memberSets.Length} member sets for view {view.Name} ...");
+        logger.LogDebug($"Default bucketizing {memberSets.Length} member sets for view {view.Name} ...");
         var memberCount = await bucketRepository
             .BucketizeMembersByMemberSetAsync(transaction, defaultBucket, memberSets)
             .ConfigureAwait(false);
@@ -52,7 +52,7 @@ public class DefaultBucketizer(
             return null;
         }
 
-        logger.LogInformation($"Incrementing default bucketized member count by {memberCount.Value} for view {view.Name} ...");
+        logger.LogDebug($"Incrementing default bucketized member count by {memberCount.Value} for view {view.Name} ...");
         return memberCount;
     }
 }

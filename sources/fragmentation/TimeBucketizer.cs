@@ -49,7 +49,7 @@ public class TimeBucketizer(
             { defaultBucket, new List<Member>() }
         };
 
-        logger.LogInformation($"Time bucketizing {memberCount} members for view {view.Name} ...");
+        logger.LogDebug($"Time bucketizing {memberCount} members for view {view.Name} ...");
         foreach (var member in membersToProcess)
         {
             List<TimeBucketPath> bucketPaths;
@@ -186,7 +186,7 @@ public class TimeBucketizer(
             return null;
         }
 
-        logger.LogInformation($"Incrementing time bucketized member count by {memberCount} for view {view.Name} ...");
+        logger.LogDebug($"Incrementing time bucketized member count by {memberCount} for view {view.Name} ...");
         return memberCount;
     }
 }

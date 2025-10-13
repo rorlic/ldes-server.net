@@ -45,12 +45,12 @@ public class MemberBucketizer(
         switch (fragmentationDefinitions.Length)
         {
             case 0:
-                logger.LogInformation(
+                logger.LogDebug(
                     $"{WorkerId}: Default bucketizing view {viewName} (max {memberBatchSize} members)...");
                 processed = await defaultBucketizer
                     .BucketizeViewAsync(transaction, view, memberBatchSize)
                     .ConfigureAwait(false);
-                logger.LogInformation($"{WorkerId}: Done default bucketizing view {viewName}.");
+                logger.LogDebug($"{WorkerId}: Done default bucketizing view {viewName}.");
                 break;
             case 1:
             {
@@ -63,12 +63,12 @@ public class MemberBucketizer(
                     case QNames.lsdn.TimeFragmentation:
                     {
                         var timeFragmentation = TimeFragmentation.From(g, fragmentation);
-                        logger.LogInformation(
+                        logger.LogDebug(
                             $"{WorkerId}: Time bucketizing view {viewName} (max {memberBatchSize} members)...");
                         processed = await timeBucketizer
                             .BucketizeViewAsync(transaction, view, timeFragmentation, memberBatchSize)
                             .ConfigureAwait(false);
-                        logger.LogInformation($"{WorkerId}: Done time bucketizing view {viewName}.");
+                        logger.LogDebug($"{WorkerId}: Done time bucketizing view {viewName}.");
                         break;
                     }
                     default:

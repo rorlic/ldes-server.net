@@ -21,16 +21,19 @@ public class BucketPaginator(
     {
         using var transaction = connection.BeginTransaction();
 
-        logger.LogDebug(
-            $"{WorkerId}: Getting view ready for pagination ...");
+        logger.LogDebug($"{WorkerId}: Getting view ready for pagination ...");
         var view = await viewRepository
             .GetViewReadyForPaginationAsync(transaction)
             .ConfigureAwait(false);
 
         if (view is null)
+        {
+            logger.LogDebug($"{WorkerId}: No views to paginate.");
             return false;
+        }
 
         var viewName = view.Name;
+        logger.LogInformation($"{WorkerId}: Paginating view {viewName} ...");
 
         logger.LogDebug(
             $"{WorkerId}: Getting buckets ready for pagination for view {viewName} (limited to approximate max {memberBatchSize} members)...");
@@ -78,6 +81,7 @@ public class BucketPaginator(
         }
         
         transaction.Commit();
+        logger.LogInformation($"{WorkerId}: Done paginating view {view.Name} for now.");
         return true;
     }
 
