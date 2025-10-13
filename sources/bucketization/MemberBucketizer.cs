@@ -1,10 +1,8 @@
 using System.Data;
-using System.Data.Common;
 using AquilaSolutions.LdesServer.Core.Extensions;
 using AquilaSolutions.LdesServer.Core.Interfaces;
 using AquilaSolutions.LdesServer.Core.Namespaces;
 using AquilaSolutions.LdesServer.Fragmentation;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using VDS.RDF;
 
@@ -14,12 +12,15 @@ public class MemberBucketizer(
     IViewRepository viewRepository,
     DefaultBucketizer defaultBucketizer,
     TimeBucketizer timeBucketizer,
-    ILogger<MemberBucketizer> logger)
+    ILogger<MemberBucketizer> logger) : IFragmentationWorker<MemberBucketizerConfiguration>
 {
     public string WorkerId { get; } = Guid.NewGuid().ToString();
 
-    public async Task<bool> TryBucketizeViewAsync(IDbConnection connection, short memberBatchSize)
+    public async Task<bool> ProcessAsync(IDbConnection connection, MemberBucketizerConfiguration configuration)
     {
+        var memberBatchSize = configuration.MemberBatchSize;
+        if (memberBatchSize <= 0) throw new ArgumentException("Member batch size must be greater than 0.");
+        
         using var transaction = connection.BeginTransaction();
 
         var view = await viewRepository

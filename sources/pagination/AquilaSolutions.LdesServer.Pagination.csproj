@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\core\AquilaSolutions.LdesServer.Core.csproj" />
+      <ProjectReference Include="..\fragmentation\AquilaSolutions.LdesServer.Fragmentation.csproj" />
       <ProjectReference Include="..\postgres\AquilaSolutions.LdesServer.Storage.Postgres.csproj" />
     </ItemGroup>
 

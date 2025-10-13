@@ -1,8 +1,8 @@
-using AquilaSolutions.LdesServer.Pagination;
+using AquilaSolutions.LdesServer.Bucketization;
 
 namespace AquilaSolutions.LdesServer;
 
-public class PaginationServiceWrapper(PaginationService service) : BackgroundService
+public class BucketizerServiceWrapper(BucketizerService service) : BackgroundService
 {
     protected override Task ExecuteAsync(CancellationToken cancellationToken)
     {

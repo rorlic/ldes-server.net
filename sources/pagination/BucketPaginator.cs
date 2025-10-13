@@ -3,6 +3,7 @@ using AquilaSolutions.LdesServer.Core.Extensions;
 using AquilaSolutions.LdesServer.Core.Interfaces;
 using AquilaSolutions.LdesServer.Core.Models;
 using AquilaSolutions.LdesServer.Core.Namespaces;
+using AquilaSolutions.LdesServer.Fragmentation;
 using Microsoft.Extensions.Logging;
 using VDS.RDF.Nodes;
 
@@ -13,12 +14,18 @@ public class BucketPaginator(
     IBucketRepository bucketRepository,
     IViewRepository viewRepository,
     IPageRepository pageRepository,
-    ILogger<BucketPaginator> logger)
+    ILogger<BucketPaginator> logger): IFragmentationWorker<BucketPaginatorConfiguration>
 {
     public string WorkerId { get; } = Guid.NewGuid().ToString();
 
-    public async Task<bool> TryPaginateBucketsAsync(IDbConnection connection, short memberBatchSize, short defaultPageSize)
+    public async Task<bool> ProcessAsync(IDbConnection connection, BucketPaginatorConfiguration configuration)
     {
+        var memberBatchSize = configuration.MemberBatchSize;
+        if (memberBatchSize <= 0) throw new ArgumentException("Member batch size must be greater than 0.");
+        
+        var defaultPageSize = configuration.DefaultPageSize;
+        if (defaultPageSize <= 0) throw new ArgumentException("Default page size must be greater than 0.");
+        
         using var transaction = connection.BeginTransaction();
 
         logger.LogDebug($"{WorkerId}: Getting view ready for pagination ...");

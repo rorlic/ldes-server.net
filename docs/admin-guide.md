@@ -65,20 +65,20 @@ To offer a collection as a TREE structure with pages containing a limited number
 Both the bucketization and the pagination processes run as an interruptable process that runs as an infinite loop checking for work, performs the available work and then waits for a delay before re-checking and repeating the loop. In each run, the process will attempt to do as much work as possible up to some configurable limits.
 
 The following parameters can be tuned:
-* `LoopDelay`: the number of milliseconds to wait between bucketization or pagination runs
+* `LoopDelay`: the number of milliseconds to wait between bucketization or pagination runs, or NULL for a one-off fragmentation (useful for jobs)
 * `MemberBatchSize`: the maximum number of members to bucketize per view or paginate per bucket
-* `DefaultPageSize`: an integer value for the maximum number of members in a page. This applies to the default view (event source) and is the default for other views if no page size is configured while creating a view. The default value is `250`.
+* `DefaultPageSize`: an integer value for the maximum number of members in a page. This applies to the default view (event source) and is the default for other views if no page size is configured while creating a view.
 
 For the fragmentation, you can specify the following values in a custom configuration file (or use environment variables) to change the defaults:
 ```json
 {
   "LdesServer": {
     "Bucketization": {
-      "LoopDelay": 2000,
-      "MemberBatchSize": 3000,
+      "LoopDelay": 5000,
+      "MemberBatchSize": 5000,
     },
     "Pagination": {
-      "LoopDelay": 3000,
+      "LoopDelay": 7000,
       "MemberBatchSize": 5000,
       "DefaultPageSize": 250
     }

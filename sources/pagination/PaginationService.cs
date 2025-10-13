@@ -1,0 +1,11 @@
+using AquilaSolutions.LdesServer.Fragmentation;
+using Microsoft.Extensions.Logging;
+
+namespace AquilaSolutions.LdesServer.Pagination;
+
+public class PaginationService(
+    BucketPaginator memberBucketizer, 
+    BucketPaginatorConfiguration configuration, 
+    IServiceProvider serviceProvider,
+    ILogger<BucketPaginator> logger) 
+    : FragmentationWorkerBase<BucketPaginator, BucketPaginatorConfiguration>(memberBucketizer, configuration, serviceProvider, logger);

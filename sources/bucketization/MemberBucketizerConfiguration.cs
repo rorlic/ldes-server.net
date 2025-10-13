@@ -1,11 +1,13 @@
+using AquilaSolutions.LdesServer.Fragmentation;
+
 namespace AquilaSolutions.LdesServer.Bucketization;
 
-public class MemberBucketizerConfiguration
+public class MemberBucketizerConfiguration : IFragmentationWorkerConfiguration
 {
     /// <summary>
-    /// Gets or sets the delay between two loops of member bucketization.
+    /// Gets or sets the delay between two loops of member bucketization, or NULL for a one-off bucketization.
     /// </summary>
-    public short LoopDelay { get; set; } = 2000;
+    public short? LoopDelay { get; set; }
     
     /// <summary>
     /// Gets or sets the number of members to bucketize at a time.
