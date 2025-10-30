@@ -11,6 +11,7 @@ using AquilaSolutions.LdesServer.Core.Models.Configuration;
 using AquilaSolutions.LdesServer.Serving;
 using AquilaSolutions.LdesServer.Serving.Services;
 using AquilaSolutions.LdesServer.Fragmentation;
+using AquilaSolutions.LdesServer.Ingestion;
 using AquilaSolutions.LdesServer.Ingestion.Algorithms;
 using AquilaSolutions.LdesServer.Ingestion.Services;
 using AquilaSolutions.LdesServer.Pagination;
@@ -18,6 +19,7 @@ using AquilaSolutions.LdesServer.Storage.Postgres.Initializer;
 using AquilaSolutions.LdesServer.Storage.Postgres.Repositories;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Npgsql;
+using Prometheus;
 using VDS.RDF;
 
 UriFactory.InternUris = false; // disable interning
@@ -70,6 +72,7 @@ builder.Services
     .AddSingleton<IMemberRepository, MemberRepository>()
     .AddSingleton<IBucketRepository, BucketRepository>()
     .AddSingleton<IPageRepository, PageRepository>()
+    .AddSingleton<IStatisticsRepository, StatisticsRepository>()
     // server
     .AddSingleton(ldesServerConfig)
     .AddSingleton<LinkedDataReader>()
@@ -117,6 +120,12 @@ if (isDevelopment)
 
 app.UseCors();
 app.UseHttpsRedirection();
+
+app.RegisterIngestionMetrics();
+app.RegisterBucketizationMetrics();
+app.RegisterPaginationMetrics();
+app.UseMetricServer();
+
 app.MapControllers();
 
 // seed definitions

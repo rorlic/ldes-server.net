@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <PackageReference Include="MinimalApis.Extensions" Version="0.11.0" />
+      <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="8.2.1" />
     </ItemGroup>
 
 </Project>
