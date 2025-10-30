@@ -28,6 +28,11 @@ public static class Sql
         public const string UpdateIngestedMemberCount =
             "update collection_stats set ingested = ingested + @Affected where cid = @Cid";
 
+        public const string GetStatistics =
+            "select c.cid, c.name as collection, cs.ingested " +
+            "from collection_stats cs " +
+            "inner join collections c on cs.cid = c.cid";
+
     }
 
     public static class View
@@ -77,6 +82,13 @@ public static class Sql
             "(select bs.total from bucketization_stats bs where bs.vid = @Vid) - "+
             "(select count(distinct bm.mid) from bucket_members bm where bm.vid = @Vid) "+
             "where vid = @Vid";
+        
+        public const string GetStatistics =
+            "select c.cid, v.vid, c.name as collection, v.name as view, vs.bucketized, vs.paginated " +
+            "from collections c " +
+            "inner join views v on v.cid = c.cid " +
+            "inner join view_stats vs on vs.vid = v.vid";
+
     }
 
     public static class Member

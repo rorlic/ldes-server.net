@@ -12,4 +12,7 @@
       <ProjectReference Include="..\postgres\AquilaSolutions.LdesServer.Storage.Postgres.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="prometheus-net.AspNetCore.HealthChecks" Version="8.2.1" />
+    </ItemGroup>
 </Project>
