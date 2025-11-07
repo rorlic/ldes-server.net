@@ -24,11 +24,13 @@ public class ByEntityIdAndVersionStrategyTest
     [Theory]
     [InlineData("http://example.org/id/something", "/", "2025-01-20T13:47:00.000+10:00",
         "http://example.org/id/something/2025-01-20T13:47:00.000+10:00")]
+    [InlineData("http://example.org/id/something", null, "2025-01-20T13:47:00.000+10:00",
+        "http://example.org/id/something/2025-01-20T13:47:00.000+10:00")]
     [InlineData("http://example.org/id/something", "#", "2025-01-20T13:47:00.000+10:00",
         "http://example.org/id/something#2025-01-20T13:47:00.000+10:00")]
     [InlineData("http://example.org/id/something", "?version=", "2025-01-20T13:47:00.000+10:00",
         "http://example.org/id/something?version=2025-01-20T13:47:00.000+10:00")]
-    public void IdentifyMemberByEntityIdAndTimestampVersion(string entityId, string separator, string version,
+    public void IdentifyMemberByEntityIdAndTimestampVersion(string entityId, string? separator, string version,
         string expected)
     {
         var sut = new ByEntityIdAndVersionStrategy(separator);
