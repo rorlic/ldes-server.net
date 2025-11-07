@@ -58,7 +58,7 @@ public class TimeFragmentationTests
     {
         const string definition = $"""
                                    @prefix tree: <https://w3id.org/tree#> . 
-                                   @prefix lsdn: <https://ldes-server.net/> . 
+                                   @prefix lsdn: <https://ldes-server.net/ns/> . 
                                    @prefix ex:   <https://example.org/> . 
                                    </occupancy/by-page> tree:fragmentationStrategy ([a lsdn:TimeFragmentation; 
                                      tree:path {Predicate}
@@ -85,7 +85,7 @@ public class TimeFragmentationTests
     {
         const string definition = $"""
                                    @prefix tree: <https://w3id.org/tree#> . 
-                                   @prefix lsdn: <https://ldes-server.net/> . 
+                                   @prefix lsdn: <https://ldes-server.net/ns/> . 
                                    @prefix ex:   <https://example.org/> . 
                                    @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> . 
                                    </occupancy/by-page> tree:fragmentationStrategy ([a lsdn:TimeFragmentation; 

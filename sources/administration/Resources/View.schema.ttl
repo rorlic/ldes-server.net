@@ -6,7 +6,7 @@
 @prefix ldes: <https://w3id.org/ldes#> .
 @prefix tree: <https://w3id.org/tree#>.
 
-@prefix lsdn: <https://ldes-server.net/> .
+@prefix lsdn: <https://ldes-server.net/ns/> .
 
 [
     a             sh:NodeShape ;

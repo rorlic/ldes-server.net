@@ -165,13 +165,13 @@ public class ViewValidatorTests
     [Theory]
     [InlineData("""
                 @prefix tree: <https://w3id.org/tree#> . 
-                @prefix lsdn: <https://ldes-server.net/> . 
+                @prefix lsdn: <https://ldes-server.net/ns/> . 
                 @prefix ex: <https://example.org/> . 
                 </occupancy/by-page> tree:fragmentationStrategy ( [a lsdn:TimeFragmentation; tree:path ex:something; ] ) .
                 """)]
     [InlineData("""
                 @prefix tree: <https://w3id.org/tree#> . 
-                @prefix lsdn: <https://ldes-server.net/> . 
+                @prefix lsdn: <https://ldes-server.net/ns/> . 
                 @prefix ex: <https://example.org/> . 
                 </occupancy/by-page> tree:viewDescription [ tree:fragmentationStrategy ( [a lsdn:TimeFragmentation; tree:path ex:something;] ) ] .
                 """)]
@@ -204,7 +204,7 @@ public class ViewValidatorTests
     {
         const string definition = """
                                   @prefix tree: <https://w3id.org/tree#> . 
-                                  @prefix lsdn: <https://ldes-server.net/> . 
+                                  @prefix lsdn: <https://ldes-server.net/ns/> . 
                                   </occupancy/by-page> tree:fragmentationStrategy ( [a lsdn:TimeFragmentation] ) .
                                   """;
         using var stream = await definition.AsStream();
@@ -215,13 +215,13 @@ public class ViewValidatorTests
     [Theory]
     [InlineData("""
                 @prefix tree: <https://w3id.org/tree#> .
-                @prefix lsdn: <https://ldes-server.net/> . 
+                @prefix lsdn: <https://ldes-server.net/ns/> . 
                 @prefix ex: <https://example.org/> . 
                 </occupancy/by-page> tree:fragmentationStrategy ( [a lsdn:TimeFragmentation; tree:path ex:something] ) .
                 """)]
     [InlineData("""
                 @prefix ex: <https://example.org/> . 
-                @prefix lsdn: <https://ldes-server.net/> . 
+                @prefix lsdn: <https://ldes-server.net/ns/> . 
                 @prefix tree: <https://w3id.org/tree#> . 
                 </occupancy/by-page> tree:viewDescription [ tree:fragmentationStrategy ( [a lsdn:TimeFragmentation; tree:path ex:something] ) ] .
                 """)]
@@ -237,7 +237,7 @@ public class ViewValidatorTests
     {
         const string definition = """
                                   @prefix tree: <https://w3id.org/tree#> .
-                                  @prefix lsdn: <https://ldes-server.net/> . 
+                                  @prefix lsdn: <https://ldes-server.net/ns/> . 
                                   @prefix ex: <https://example.org/> . 
                                   </occupancy/by-page> tree:fragmentationStrategy ( [a lsdn:TimeFragmentation; tree:path ex:something; tree:path ex:somethingElse; ] ) .
                                   """;
@@ -255,7 +255,7 @@ public class ViewValidatorTests
     {
         const string definition = """
                                   @prefix tree: <https://w3id.org/tree#> . 
-                                  @prefix lsdn: <https://ldes-server.net/> . 
+                                  @prefix lsdn: <https://ldes-server.net/ns/> . 
                                   @prefix ex: <https://example.org/> . 
                                   </occupancy/by-page> tree:fragmentationStrategy ( [a lsdn:TimeFragmentation; tree:path ex:something] ) .
                                   """;
@@ -269,7 +269,7 @@ public class ViewValidatorTests
     {
         const string definition = """
                                   @prefix tree: <https://w3id.org/tree#> . 
-                                  @prefix lsdn: <https://ldes-server.net/> . 
+                                  @prefix lsdn: <https://ldes-server.net/ns/> . 
                                   @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> . 
                                   @prefix ex: <https://example.org/> . 
                                   </occupancy/by-page> tree:fragmentationStrategy ( 
@@ -290,7 +290,7 @@ public class ViewValidatorTests
     {
         const string definition = """
                                   @prefix tree: <https://w3id.org/tree#> . 
-                                  @prefix lsdn: <https://ldes-server.net/> . 
+                                  @prefix lsdn: <https://ldes-server.net/ns/> . 
                                   @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> . 
                                   @prefix ex: <https://example.org/> . 
                                   </occupancy/by-page> tree:fragmentationStrategy ( 
@@ -310,7 +310,7 @@ public class ViewValidatorTests
     {
         const string definition = """
                                   @prefix tree: <https://w3id.org/tree#> . 
-                                  @prefix lsdn: <https://ldes-server.net/> . 
+                                  @prefix lsdn: <https://ldes-server.net/ns/> . 
                                   @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> . 
                                   @prefix ex: <https://example.org/> . 
                                   </occupancy/by-page> tree:fragmentationStrategy ( 
@@ -329,7 +329,7 @@ public class ViewValidatorTests
     {
         const string definition = """
                                   @prefix tree: <https://w3id.org/tree#> . 
-                                  @prefix lsdn: <https://ldes-server.net/> . 
+                                  @prefix lsdn: <https://ldes-server.net/ns/> . 
                                   @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> . 
                                   @prefix ex: <https://example.org/> . 
                                   </occupancy/by-page> tree:fragmentationStrategy ( 
