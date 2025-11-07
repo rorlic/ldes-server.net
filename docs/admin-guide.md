@@ -143,7 +143,7 @@ This defines a new collection named {collectionName} with the following default 
 * `ingest:splitMessage` using `ingest:SplitMessageByNamedNode`
 * `ingest:identifyEntity` using `ingest:IdentifyEntityBySingleNamedNode`
 * `ingest:identifyVersion` using `ingest:IdentifyVersionWithIngestTimestamp`
-* `ingest:identifyMember` using `ingest:IdentifyMemberByEntityIdAndVersion` (with separator `#`)
+* `ingest:identifyMember` using `ingest:IdentifyMemberByEntityIdAndVersion` (with separator `/`)
 * `ingest:createMember` using `ingest:CreateMemberAsIs`
 
 This is identical to:
@@ -191,7 +191,7 @@ After identifying the entity itself, the server needs to know which version of t
 
 ### Member Identification
 When both the entity identifier and entity version are found or assigned, the member can be identified. For the *member identification* there are two options: 
-* `ingest:IdentifyMemberByEntityIdAndVersion`: concatenate the entity identifier and version, separating them by an optional separator (`ingest:separator`), defaults to `#`.
+* `ingest:IdentifyMemberByEntityIdAndVersion`: concatenate the entity identifier and version, separating them by an optional separator (`ingest:separator`), defaults to `/`.
 * `ingest:IdentifyMemberWithEntityId`: use the entity identifier as the member identifier. This is used when ingesting (existing) version objects instead of ingesting state objects. 
 
 ### Member Creation
