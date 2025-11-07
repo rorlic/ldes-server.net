@@ -79,7 +79,7 @@ public class CollectionValidatorTests
     public async Task AcceptsMissingSetOfIngestAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> .
                                   """;
         using var stream = await definition.AsStream();
@@ -91,7 +91,7 @@ public class CollectionValidatorTests
     public async Task AcceptsSingleSetOfIngestAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [] .
                                   """;
@@ -104,7 +104,7 @@ public class CollectionValidatorTests
     public async Task RefusesMultipleSetsOfIngestAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy> a <https://w3id.org/ldes#EventStream> ;
                                                lsdn:ingestion [], [] .
                                   """;
@@ -121,7 +121,7 @@ public class CollectionValidatorTests
     public async Task AcceptsMissingSplitMessageAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [] .
                                   """;
@@ -134,8 +134,8 @@ public class CollectionValidatorTests
     public async Task AcceptsOneSplitMessageAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:splitMessage [ a ingest:SplitMessageAsSingleEntity ]
@@ -150,8 +150,8 @@ public class CollectionValidatorTests
     public async Task RefusesMultipleSplitMessageAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:splitMessage [
@@ -178,8 +178,8 @@ public class CollectionValidatorTests
     public async Task AcceptsWellKnownSplitMessageAlgorithm(string algorithmName)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                               ingest:splitMessage [ a ingest:{algorithmName} ]
@@ -194,8 +194,8 @@ public class CollectionValidatorTests
     public async Task RefusesUnknownSplitMessageAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:splitMessage [
@@ -216,8 +216,8 @@ public class CollectionValidatorTests
     public async Task AcceptsSplitMessageByPredicateAndObjectAlgorithmWithPredicateAndObject()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:splitMessage [ a ingest:SplitMessageByPredicateAndObject ;
@@ -237,8 +237,8 @@ public class CollectionValidatorTests
     public async Task RefusesSplitMessageByPredicateAndObjectAlgorithmWithoutPredicateOrObject(string property)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                                ingest:splitMessage [a ingest:SplitMessageByPredicateAndObject ;
@@ -259,7 +259,7 @@ public class CollectionValidatorTests
     public async Task AcceptsMissingIdentifyEntityAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [] .
                                   """;
@@ -272,8 +272,8 @@ public class CollectionValidatorTests
     public async Task AcceptsOneIdentifyEntityAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:identifyEntity [ a ingest:IdentifyEntityBySingleNamedNode ]
@@ -288,8 +288,8 @@ public class CollectionValidatorTests
     public async Task RefusesMultipleIdentifyEntityAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyEntity [
@@ -315,8 +315,8 @@ public class CollectionValidatorTests
     public async Task AcceptsWellKnownIdentifyEntityAlgorithm(string algorithmName)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                               ingest:identifyEntity [ a ingest:{algorithmName} ]
@@ -331,8 +331,8 @@ public class CollectionValidatorTests
     public async Task RefusesUnknownIdentifyEntityAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyEntity [
@@ -353,8 +353,8 @@ public class CollectionValidatorTests
     public async Task AcceptsIdentifyEntityByEntityTypeAlgorithmWithObject()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:identifyEntity [ a ingest:IdentifyEntityByEntityType ;
@@ -371,8 +371,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyEntityByEntityTypeAlgorithmWithoutObject()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyEntity [a ingest:IdentifyEntityByEntityType
@@ -392,8 +392,8 @@ public class CollectionValidatorTests
     public async Task AcceptsIdentifyEntityByPredicateAndObjectAlgorithmWithPredicateAndObject()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:identifyEntity [ a ingest:IdentifyEntityByPredicateAndObject ;
@@ -413,8 +413,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyEntityByPredicateAndObjectAlgorithmWithoutPredicateOrObject(string property)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                                ingest:identifyEntity [a ingest:IdentifyEntityByPredicateAndObject ;
@@ -435,7 +435,7 @@ public class CollectionValidatorTests
     public async Task AcceptsMissingIdentifyVersionAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [] .
                                   """;
@@ -448,8 +448,8 @@ public class CollectionValidatorTests
     public async Task AcceptsOneIdentifyVersionAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:identifyVersion [ a ingest:IdentifyVersionWithIngestTimestamp ]
@@ -464,8 +464,8 @@ public class CollectionValidatorTests
     public async Task RefusesMultipleIdentifyVersionAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:splitMessage [
@@ -490,8 +490,8 @@ public class CollectionValidatorTests
     public async Task AcceptsWellKnownIdentifyVersionAlgorithm(string algorithmName)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                               ingest:identifyVersion [ a ingest:{algorithmName} ]
@@ -506,8 +506,8 @@ public class CollectionValidatorTests
     public async Task RefusesUnknownIdentifyVersionAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyVersion [
@@ -528,8 +528,8 @@ public class CollectionValidatorTests
     public async Task AcceptsIdentifyVersionBySubjectAndPredicatePathAlgorithmWithPredicate()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:identifyVersion [ 
@@ -547,8 +547,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyVersionBySubjectAndPredicatePathAlgorithmWithoutPredicate()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyVersion [
@@ -569,7 +569,7 @@ public class CollectionValidatorTests
     public async Task AcceptsMissingIdentifyMemberAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [] .
                                   """;
@@ -582,8 +582,8 @@ public class CollectionValidatorTests
     public async Task AcceptsOneIdentifyMemberAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:identifyMember [ a ingest:IdentifyMemberWithEntityId ]
@@ -598,8 +598,8 @@ public class CollectionValidatorTests
     public async Task RefusesMultipleIdentifyMemberAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyMember [
@@ -624,8 +624,8 @@ public class CollectionValidatorTests
     public async Task AcceptsWellKnownIdentifyMemberAlgorithm(string algorithmName)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                               ingest:identifyMember [ a ingest:{algorithmName} ]
@@ -640,8 +640,8 @@ public class CollectionValidatorTests
     public async Task RefusesUnknownIdentifyMemberAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyMember [
@@ -662,8 +662,8 @@ public class CollectionValidatorTests
     public async Task AcceptsIdentifyMemberByEntityAndVersionAlgorithmWithStringSeparator()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:identifyMember [ 
@@ -685,8 +685,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyMemberByEntityAndVersionAlgorithmWithNonStringSeparator(string separator)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                                ingest:identifyMember [ 
@@ -708,7 +708,7 @@ public class CollectionValidatorTests
     public async Task AcceptsMissingCreateMemberAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [] .
                                   """;
@@ -721,8 +721,8 @@ public class CollectionValidatorTests
     public async Task AcceptsOneCreateMemberAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:createMember [ a ingest:CreateMemberAsIs ]
@@ -737,8 +737,8 @@ public class CollectionValidatorTests
     public async Task RefusesMultipleCreateMemberAlgorithms()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:createMember [
@@ -763,8 +763,8 @@ public class CollectionValidatorTests
     public async Task AcceptsWellKnownCreateMemberAlgorithm(string algorithmName)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                               ingest:createMember [ a ingest:{algorithmName} ]
@@ -779,8 +779,8 @@ public class CollectionValidatorTests
     public async Task RefusesUnknownCreateMemberAlgorithm()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:createMember [
@@ -801,8 +801,8 @@ public class CollectionValidatorTests
     public async Task AcceptsCreateMemberWithEntityMaterializationAlgorithmWithIriPredicate()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                       ingest:createMember [ 
@@ -824,8 +824,8 @@ public class CollectionValidatorTests
     public async Task RefusesCreateMemberWithEntityMaterializationAlgorithmWithNonIriPredicate(string predicate)
     {
         var definition = $"""
-                          @prefix lsdn:   <https://ldes-server.net/> .
-                          @prefix ingest: <https://ldes-server.net/ingest#> .
+                          @prefix lsdn:   <https://ldes-server.net/ns/> .
+                          @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                           </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                           lsdn:ingestion [
                                                ingest:createMember [ 
@@ -971,8 +971,8 @@ public class CollectionValidatorTests
     public async Task AcceptsIdentifyVersionBySubjectAndSequencePathAlgorithmWithSingleItemList()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   @prefix ex:     <http://example.org/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
@@ -991,8 +991,8 @@ public class CollectionValidatorTests
     public async Task AcceptsIdentifyVersionBySubjectAndSequencePathAlgorithmWithMultipleItemList()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   @prefix ex:     <http://example.org/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
@@ -1011,8 +1011,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyVersionBySubjectAndSequencePathAlgorithmWithoutPredicate()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyVersion [
@@ -1029,8 +1029,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyVersionBySubjectAndSequencePathAlgorithmWithEmptyPredicate()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyVersion [
@@ -1048,8 +1048,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyVersionBySubjectAndSequencePathAlgorithmWithPredicatePath()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   @prefix ex:     <http://example.org/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
@@ -1068,8 +1068,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyVersionBySubjectAndSequencePathAlgorithmWithNonListPredicate()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [
                                                        ingest:identifyVersion [
@@ -1087,8 +1087,8 @@ public class CollectionValidatorTests
     public async Task RefusesIdentifyVersionBySubjectAndSequencePathAlgorithmWithIncorrectSequencePath ()
     {
         const string definition = """
-                                  @prefix lsdn:   <https://ldes-server.net/> .
-                                  @prefix ingest: <https://ldes-server.net/ingest#> .
+                                  @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                  @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                   @prefix ex:     <http://example.org/> .
                                   </occupancy>    a <https://w3id.org/ldes#EventStream> ;
                                                   lsdn:ingestion [

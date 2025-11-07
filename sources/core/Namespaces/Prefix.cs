@@ -3,8 +3,8 @@ namespace AquilaSolutions.LdesServer.Core.Namespaces;
 
 public static class Prefix
 {
-    public const string lsdn = "https://ldes-server.net/";
-    public const string ingest = "https://ldes-server.net/ingest#";
+    public const string lsdn = "https://ldes-server.net/ns/";
+    public const string ingest = "https://ldes-server.net/ns/ingest#";
 
     public const string rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     public const string ldes = "https://w3id.org/ldes#";

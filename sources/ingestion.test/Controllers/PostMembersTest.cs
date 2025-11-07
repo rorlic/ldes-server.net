@@ -64,8 +64,8 @@ public class PostMembersTest
         const string resourceName = "Data.SingleEntityInDefaultGraph.ttl";
 
         const string definition = $"""
-                                   @prefix lsdn:   <https://ldes-server.net/> .
-                                   @prefix ingest: <https://ldes-server.net/ingest#> .
+                                   @prefix lsdn:   <https://ldes-server.net/ns/> .
+                                   @prefix ingest: <https://ldes-server.net/ns/ingest#> .
                                    <{collectionName}>  a <https://w3id.org/ldes#EventStream> ;
                                                    lsdn:ingestion [
                                                       ingest:splitMessage [a ingest:SplitMessageAsSingleEntity];
