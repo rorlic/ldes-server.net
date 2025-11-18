@@ -1,3 +1,0 @@
-@prefix ldes: <https://w3id.org/ldes#> .
-
-</collection2> a ldes:EventStream .

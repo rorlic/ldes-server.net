@@ -1,3 +1,0 @@
-@prefix tree: <https://w3id.org/tree#> .
-
-</collection1/viewA> a tree:Node .
