@@ -17,7 +17,7 @@ public class TriGOutputFormatter : StoreOutputFormatterBase
         {
             CompressionLevel = WriterCompressionLevel.High,
             HighSpeedModePermitted = false,
-            PrettyPrintMode = false
+            PrettyPrintMode = true
         };
     }
 }

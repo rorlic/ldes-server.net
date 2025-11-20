@@ -16,7 +16,7 @@ public class TurtleOutputFormatter : GraphOutputFormatterBase
         return new CompressingTurtleWriter
         {
             CompressionLevel = WriterCompressionLevel.High, 
-            PrettyPrintMode = false
+            PrettyPrintMode = true
         };
     }
 }
