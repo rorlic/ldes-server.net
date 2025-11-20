@@ -17,7 +17,7 @@ public class ShaclController : ControllerBase
     }
 
     [HttpHead("collection")]
-    [Tags("Collections")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetCollectionDefinitionShaclMetadata() => GetCollectionDefinitionShacl();
     
     
@@ -30,6 +30,6 @@ public class ShaclController : ControllerBase
     }
 
     [HttpHead("view")]
-    [Tags("Views")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetViewDefinitionShaclMetadata() => GetViewDefinitionShacl();
 }

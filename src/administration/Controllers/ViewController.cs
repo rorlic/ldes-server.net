@@ -63,7 +63,7 @@ public class ViewController : ControllerBase
     }
 
     [HttpHead("{collection}/view/{view}")]
-    [Tags("Views")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetViewDefinitionMetadata(
         [FromRoute] string collection, [FromRoute] string view, [FromServices] IViewService viewService) =>
         GetViewDefinition(collection, view, viewService);
@@ -83,7 +83,7 @@ public class ViewController : ControllerBase
     }
 
     [HttpHead("{collection}/view")]
-    [Tags("Views")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetViewDefinitionsMetadata(
         [FromRoute] string collection, [FromServices] IViewService viewService) =>
         GetViewDefinitions(collection, viewService);

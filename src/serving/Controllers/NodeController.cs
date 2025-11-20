@@ -21,7 +21,7 @@ public class NodeController : ControllerBase
     }
 
     [HttpHead("{ldes}")]
-    [Tags("Event Streams")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetEventStreamNodeMetadata(
         [FromRoute] string ldes, 
         [FromServices] NodeService nodeService) => GetEventStreamNode(ldes, nodeService);
@@ -40,7 +40,7 @@ public class NodeController : ControllerBase
     }
 
     [HttpHead("{ldes}/{view}")]
-    [Tags("Event Streams")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetViewNodeMetadata(
         [FromRoute] string ldes, 
         [FromRoute] string view, 
@@ -62,7 +62,7 @@ public class NodeController : ControllerBase
     }
 
     [HttpHead("{ldes}/{view}/{page}")]
-    [Tags("Event Streams")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetPageNodeMetadata(
         [FromRoute] string ldes, 
         [FromRoute] string view, 

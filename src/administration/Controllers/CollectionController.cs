@@ -3,7 +3,6 @@ using LdesServer.Core;
 using LdesServer.Core.InputFormatters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
 namespace LdesServer.Administration.Controllers;
 
@@ -56,7 +55,7 @@ public class CollectionController : ControllerBase
     }
 
     [HttpHead("{collection}")]
-    [Tags("Collections")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetCollectionDefinitionMetadata(
         [FromRoute] string collection, [FromServices] ICollectionService collectionService) =>
         GetCollectionDefinition(collection, collectionService);
@@ -73,8 +72,7 @@ public class CollectionController : ControllerBase
     }
 
     [HttpHead("")]
-    [Tags("Collections")]
-    [ExcludeFromDescription]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public Task<IActionResult> GetCollectionDefinitionsMetadata([FromServices] ICollectionService collectionService)
         => GetCollectionDefinitions(collectionService);
 }
