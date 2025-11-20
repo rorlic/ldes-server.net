@@ -17,12 +17,12 @@ If you want to **override default settings using a custom configuration file**, 
        environment:
          - ASPNETCORE_ENVIRONMENT=staging
    ```
-   > [!TIP]
-   > Alternatively, you can export the variable in your shell before deploying the systems as the [docker compose](/docker-compose.yml) file already allows overriding this environment variable:
-   > ```bash
-   > export ASPNETCORE_ENVIRONMENT=staging
-   > docker compose up -d
-   > ```   
+> [!TIP]
+> Alternatively, you can export the variable in your shell before deploying the systems as the [docker compose](/docker-compose.yml) file already allows overriding this environment variable:
+> ```bash
+> export ASPNETCORE_ENVIRONMENT=staging
+> docker compose up -d
+> ```   
 
 3. Create a configuration file named `appsettings.{environment}.json` (e.g., `appsettings.staging.json`), containing only the settings you want to override, structured the same way as the default `appsettings.json`:
    ```json
