@@ -1,0 +1,39 @@
+networks:
+  minimal-server:
+    name: minimal-server_ldes-network
+
+services:
+
+  ldes-server:
+    image: rorlic/ldes-server:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_HTTP_PORTS=80
+      - ConnectionStrings:Postgres=Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Persist Security Info=true
+      - LdesServer:BaseUri=http://localhost:8080/feed/
+    ports:
+      - 8080:80
+    networks:
+      - minimal-server
+    healthcheck:
+      test: curl http://ldes-server/metrics
+      interval: 2s
+      retries: 15
+      start_period: 3s
+      timeout: 1s
+
+
+  postgres:
+    image: postgres:latest
+    env_file:
+      - .env
+    networks:
+      - minimal-server
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      interval: 10s
+      retries: 15
+      start_period: 30s
+      timeout: 10s

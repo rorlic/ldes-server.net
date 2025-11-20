@@ -1,2 +1,2 @@
 # Tutorial Index
-* Setting up a minimal LDES server
+- [**Setting Up a Minimal LDES Server**](./minimal-server/README.md) — Learn how to set up a lightweight LDES server that directly ingests linked data.  
