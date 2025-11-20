@@ -8,30 +8,20 @@ services:
   postgres:
     image: postgres:${POSTGRES_TAG:-latest}
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DB=${POSTGRES_DB:-development}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PWD}
     command: -c shared_preload_libraries='pg_stat_statements'
-    shm_size: 128mb
-    ports:
-      - 5432:5432
+    # shm_size: 128mb
     networks:
        - development-network
     healthcheck:
-      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-      interval: 10s
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB:-development}
+      interval: 2s
       retries: 15
-      start_period: 30s
-      timeout: 10s
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '8.0'
-          memory: '2.0GB'
-        reservations:
-          cpus: '0.5'
-          memory: '0.25GB'
+      start_period: 3s
+      timeout: 1s
+
 
   # Postgres Database UI
   adminer:
@@ -43,34 +33,25 @@ services:
       - 8085:8080
     networks:
       - development-network
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: '0.5GB'
-        reservations:
-          cpus: '0.1'
-          memory: '0.25GB'
+
 
   # LDES Server
   ldes-server:
-    image: aquila-solutions/ldes-server:latest
+    image: rorlic/ldes-server:latest
     depends_on:
       postgres:
         condition: service_healthy
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ConnectionStrings:Postgres=Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PWD};Persist Security Info=true
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}
+      - ASPNETCORE_HTTP_PORTS=${ASPNETCORE_HTTP_PORTS:-8080}
+      - ConnectionStrings:Postgres=Host=postgres;Port=5432;Database=${POSTGRES_DB:-development};Username=${POSTGRES_USER};Password=${POSTGRES_PWD};Persist Security Info=true
     ports:
-      - 8080:8080
+      - 8080:${ASPNETCORE_HTTP_PORTS:-8080}
     networks:
       - development-network
     healthcheck:
-      test: curl http://ldes-server:8080/metrics
-      interval: 10s
+      test: curl http://ldes-server:${ASPNETCORE_HTTP_PORTS:-8080}/metrics
+      interval: 2s
       retries: 15
-      start_period: 30s
-      timeout: 10s
-    restart: unless-stopped
+      start_period: 3s
+      timeout: 1s

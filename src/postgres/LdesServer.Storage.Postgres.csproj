@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.35" />
+      <PackageReference Include="Dapper.Transaction" Version="2.1.35" />
+      <PackageReference Include="dbup-core" Version="5.0.87" />
+      <PackageReference Include="dbup-postgresql" Version="5.0.40" />
+      <PackageReference Include="Npgsql" Version="8.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\core\LdesServer.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Scripts\20250211T155200.create-views.sql" />
+      <EmbeddedResource Include="Scripts\20250121T132300.create-members.sql" />
+      <EmbeddedResource Include="Scripts\20240723T151300.create-collections.sql" />
+      <EmbeddedResource Include="Scripts\20250304T142400.create-buckets.sql" />
+      <EmbeddedResource Include="Scripts\20250304T144000.create-pages.sql" />
+      <EmbeddedResource Include="Scripts\20250304T145300.create-page-relations.sql" />
+      <EmbeddedResource Include="Scripts\20250304T150900.create-page-members.sql" />
+      <EmbeddedResource Include="Scripts\20250827T210800.create-bucket-members.sql" />
+      <EmbeddedResource Include="Scripts\20250901T171600.create-fragmentation-progress.sql" />
+    </ItemGroup>
+
+</Project>
