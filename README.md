@@ -3,7 +3,7 @@ Welcome to the **LDES-Server.NET** — a flexible, reliable, and scalable LDES s
 
 An **LDES (Linked Data Event Stream) server** is a fundamental component in any software architecture built on LDES technology. Its primary function is to manage one or more data collections—ranging from just a few items to millions—and to expose each collection in full compliance with the LDES specification, which builds upon the [TREE specification](https://w3id.org/tree/specification).
 
-To learn what LDES is about and the motivation behind it, you can have a look at the [LDES step-by-step guide](https://github.com/rorlic/ldes-docs/blob/main/step-by-step/README.md). Focus especially on the first couple of steps as these will be important when you actually use the LDES-Server.NET system (referred to as the *LDES server* throughout this repository).
+To learn what LDES is about and the motivation behind it, you can have a look at the [LDES step-by-step guide](https://github.com/rorlic/ldes-docs/blob/main/step-by-step/README.md). Focus especially on the first couple of steps as these will be important when you actually use the LDES-Server.NET system, referred to as the *LDES server* throughout the [LDES-Server.NET repository](https://github.com/rorlic/ldes-server.net).
 
 
 ## Table of Contents
