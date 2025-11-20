@@ -1,4 +1,4 @@
-# Index
+# Reference Index
 
 ## General
 * [RDF formats](./rdf-formats.md)
