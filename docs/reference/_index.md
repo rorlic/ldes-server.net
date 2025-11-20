@@ -11,8 +11,9 @@
 
 ## Definitions
 * [Collection definition](./collection-definition.md)
-* [Entity identification](./entity-identification.md)
-* [Member creation](./member-creation.md)
-* [Member identification](./member-identification.md)
-* [Message splitting](./message-splitting.md)
-* [Version identification](./version-identification.md)
+* [Ingestion](../discussions/ingestion.md) (in step order):
+  * [Message splitting](./message-splitting.md)
+  * [Entity identification](./entity-identification.md)
+  * [Version identification](./version-identification.md)
+  * [Member identification](./member-identification.md)
+  * [Member creation](./member-creation.md)
