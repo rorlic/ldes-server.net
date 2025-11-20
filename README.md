@@ -1,7 +1,7 @@
 # LDES-Server.NET
-Welcome to the **LDES-Server.NET** — a flexible, reliable, and scalable LDES server compliant with the latest [LDES specification](https://w3id.org/ldes/specification).
+Welcome to the **LDES-Server.NET** — a flexible, reliable, and scalable LDES server compliant with the latest [LDES (Linked Data Event Stream) specification](https://w3id.org/ldes/specification).
 
-An **LDES (Linked Data Event Stream) server** is a fundamental component in any software architecture built on LDES technology. Its primary function is to manage one or more data collections—ranging from just a few items to millions—and to expose each collection in full compliance with the LDES specification, which builds upon the [TREE specification](https://w3id.org/tree/specification).
+An **LDES server** is a fundamental component in any software architecture built on LDES technology. Its primary function is to manage one or more data collections—ranging from just a few items to millions—and to expose each collection in full compliance with the LDES specification, which builds upon the [TREE specification](https://w3id.org/tree/specification).
 
 To learn what LDES is about and the motivation behind it, you can have a look at the [LDES step-by-step guide](https://github.com/rorlic/ldes-docs/blob/main/step-by-step/README.md). Focus especially on the first couple of steps as these will be important when you actually use the LDES-Server.NET system, referred to as the *LDES server* throughout the [LDES-Server.NET repository](https://github.com/rorlic/ldes-server.net).
 
@@ -25,21 +25,21 @@ To learn what LDES is about and the motivation behind it, you can have a look at
 
 
 ## Installation
-To install and experiment with an LDES server locally, you’ll need a Bash shell, a few open-source components, and some basic technical knowledge. After installing these prerequisites, you can launch the LDES server easily and try it with your data collections.
+To install and experiment with an LDES server locally, you’ll need a [Bash shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)), a few open-source components, and some basic technical knowledge. After installing these prerequisites, you can launch the LDES server easily and try it with your data collections.
 
 The LDES server is distributed as a [Docker](https://www.docker.com/) image, which provides a self-contained, containerized environment for running the server. 
 To store data items and collections, the LDES server relies on a [PostgreSQL](https://www.postgresql.org/) database, which is provided as a Docker image on Docker Hub (see [here](https://hub.docker.com/_/postgres)).  
 Because both containers must communicate, you’ll need a private network. 
-You can use [Docker Compose](https://docs.docker.com/compose/) to define the necessary network and orchestrate both Docker images.
+You can use [Docker Compose](https://docs.docker.com/compose/) to define the necessary network and run both Docker containers.
 
 ### Prerequisites
 To run the commands below, you’ll first need access to a Bash shell and basic command-line (CLI) knowledge.
-- **Windows:** Use the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about). Docker also requires WSL (see later).
+- **Windows:** Use the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about).
 - **macOS:** The default Z shell (zsh) works, but minor syntax differences may occur. Using Bash is recommended.
 - **Linux:** Bash is installed by default.
 
 #### Editor
-You can use any editor or development environment that you like to look at the source files. However, [Visual Studio Code](https://code.visualstudio.com/) and its open source alternative [VSCodium](https://vscodium.com/) offer a few nice features, such as previewing this and other markdown files as well as to manage [Docker](https://code.visualstudio.com/docs/containers/overview) and [Git](https://code.visualstudio.com/docs/sourcecontrol/overview) from within the editor.
+You can use any editor or development environment that you like to look at the source files. However, [Visual Studio Code](https://code.visualstudio.com/) and its open source alternative [VSCodium](https://vscodium.com/) offer a few nice features, such as previewing this and other markdown files as well as managing [Docker](https://code.visualstudio.com/docs/containers/overview) and [Git](https://code.visualstudio.com/docs/sourcecontrol/overview) from within the editor.
 
 #### Git
 To download and use this repository you will need to install [Git](https://git-scm.com/downloads). After that, you can retrieve this repository locally using the following command:
