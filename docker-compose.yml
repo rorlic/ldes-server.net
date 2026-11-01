@@ -50,8 +50,10 @@ services:
     networks:
       - development-network
     healthcheck:
-      test: curl http://ldes-server:${ASPNETCORE_HTTP_PORTS:-8080}/metrics
+      # using dhi.io image which lacks curl and wget, so we need to disable the healthcheck for now
+      disable: true
+      test: curl --fail http://ldes-server:${ASPNETCORE_HTTP_PORTS:-8080}/health
       interval: 2s
       retries: 15
-      start_period: 3s
+      start_period: 10s
       timeout: 1s

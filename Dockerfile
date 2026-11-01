@@ -1,9 +1,7 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install curl -y
+﻿FROM dhi.io/aspnetcore:10 AS base
 WORKDIR /ldes-server
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM dhi.io/dotnet:10-sdk AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ./src .
@@ -22,5 +20,4 @@ EXPOSE $ASPNETCORE_HTTP_PORTS
 WORKDIR /ldes-server
 COPY --from=publish --exclude=*.pdb --exclude=*.deps.json --exclude=*.Development.json /ldes-server/publish .
 
-USER $APP_UID
 ENTRYPOINT ["dotnet", "LdesServer.dll"]
