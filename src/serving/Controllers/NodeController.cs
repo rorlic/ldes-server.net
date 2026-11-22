@@ -2,11 +2,13 @@ using LdesServer.Serving.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace LdesServer.Serving.Controllers;
 
 [ApiController]
 [Route("feed")]
+[EnableRateLimiting(RateLimitingExtensions.PolicyName)]
 public class NodeController : ControllerBase
 {
     [HttpGet("{ldes}", Name = "GetEventStream")]

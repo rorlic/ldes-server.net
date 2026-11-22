@@ -32,6 +32,7 @@ var ldesServerConfig = ldesServerConfigSection.Get<LdesServerConfiguration>() ??
 var bucketizationConfigSection = ldesServerConfigSection.GetSection("Bucketization");
 var paginationConfigSection = ldesServerConfigSection.GetSection("Pagination");
 var servingConfigSection = ldesServerConfigSection.GetSection("Serving");
+var servingConfig = servingConfigSection.Get<ServingConfiguration>() ?? new ServingConfiguration();
 
 builder.Services
     .AddCors(o => o.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()))
@@ -100,8 +101,8 @@ builder.Services
     .AddTransient<PaginationService>()
     .AddHostedService<PaginationBackgroundService>()
     // fetching
-    .AddSingleton<ServingConfiguration>(_ =>
-        servingConfigSection.Get<ServingConfiguration>() ?? new ServingConfiguration())
+    .AddSingleton(servingConfig)
+    .AddServingRateLimiting(servingConfig)
     .AddScoped<NodeService>()
     // web api
     .AddSingleton<ILogger>(sp => sp.GetRequiredService<ILoggerFactory>().CreateLogger("LDES Server .NET"));
@@ -121,6 +122,7 @@ if (isDevelopment)
 }
 
 app.UseCors();
+app.UseRateLimiter();
 app.MapHealthChecks("/health");
 
 app.RegisterIngestionMetrics();
