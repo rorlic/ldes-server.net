@@ -1,3 +1,5 @@
+using LdesServer.Core;
+using LdesServer.Serving.Extensions;
 using LdesServer.Serving.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -7,7 +9,7 @@ using Microsoft.AspNetCore.RateLimiting;
 namespace LdesServer.Serving.Controllers;
 
 [ApiController]
-[Route("feed")]
+[Route(RouteNames.Feed)]
 [EnableRateLimiting(RateLimitingExtensions.PolicyName)]
 public class NodeController : ControllerBase
 {

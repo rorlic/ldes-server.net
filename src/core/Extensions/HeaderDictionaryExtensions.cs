@@ -10,7 +10,6 @@ public static class HeaderDictionaryExtensions
         headers.CacheControl = metadata.CacheControl;
         headers.LastModified = metadata.LastModified;
         headers.ETag = metadata.ETag;
-        headers.Vary = new[] { "Accept" };
         return headers;
     }
 }

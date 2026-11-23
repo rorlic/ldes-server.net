@@ -5,6 +5,7 @@ using LdesServer.Administration.Interfaces;
 using LdesServer.Administration.Services;
 using LdesServer.Core.Interfaces;
 using LdesServer.Bucketization;
+using LdesServer.Core;
 using LdesServer.Core.InputFormatters;
 using LdesServer.Core.OutputFormatters;
 using LdesServer.Core.Models.Configuration;
@@ -15,6 +16,7 @@ using LdesServer.Ingestion;
 using LdesServer.Ingestion.Algorithms;
 using LdesServer.Ingestion.Services;
 using LdesServer.Pagination;
+using LdesServer.Serving.Extensions;
 using LdesServer.Storage.Postgres.Initializer;
 using LdesServer.Storage.Postgres.Repositories;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -109,6 +111,7 @@ builder.Services
 
 var app = builder.Build();
 app.UseExceptionHandler();
+app.UseVaryAccept($"/{RouteNames.Feed}");
 
 var isDevelopment = app.Environment.IsDevelopment();
 var storageInitializer = app.Services.GetRequiredService<IStorageInitializer>();
@@ -123,7 +126,7 @@ if (isDevelopment)
 
 app.UseCors();
 app.UseRateLimiter();
-app.MapHealthChecks("/health");
+app.MapHealthChecks($"/{RouteNames.Health}");
 
 app.RegisterIngestionMetrics();
 app.RegisterBucketizationMetrics();

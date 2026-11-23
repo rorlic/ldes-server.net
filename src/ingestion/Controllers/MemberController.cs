@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LdesServer.Ingestion.Controllers;
 
 [ApiController]
-[Route("data")]
+[Route(RouteNames.Data)]
 public class MemberController : ControllerBase
 {
     [HttpPost("{collectionName}", Name = "PostMemberData")]

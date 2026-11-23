@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LdesServer.Administration.Controllers;
 
 [ApiController]
-[Route("admin/api/v1/collection")]
+[Route($"{RouteNames.AdminApiVersion1}/collection")]
 public class ViewController : ControllerBase
 {
     [HttpPost("{collection}/view", Name = "CreateView")]

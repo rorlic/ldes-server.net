@@ -1,11 +1,12 @@
 // src/serving/RateLimitingExtensions.cs
+
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LdesServer.Serving;
+namespace LdesServer.Serving.Extensions;
 
 public static class RateLimitingExtensions
 {

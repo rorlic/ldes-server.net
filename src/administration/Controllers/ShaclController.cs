@@ -1,11 +1,12 @@
 using LdesServer.Administration.Validators;
+using LdesServer.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LdesServer.Administration.Controllers;
 
 [ApiController]
-[Route("admin/api/v1/shacl")]
+[Route($"{RouteNames.AdminApiVersion1}/shacl")]
 public class ShaclController : ControllerBase
 {
     [HttpGet("collection")]
